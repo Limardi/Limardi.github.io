@@ -1,10 +1,12 @@
+@tailwind base;
+@tailwind components;
 @tailwind utilities;
 
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 9, 9, 11;
 }
 
 @theme inline {
@@ -23,8 +25,8 @@
 
 body {
   @apply bg-zinc-950 text-zinc-100;
-  background: var(--background);
-  color: var(--foreground);
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
   font-family: Arial, Helvetica, sans-serif;
 }
 

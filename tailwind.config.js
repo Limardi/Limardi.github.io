@@ -6,13 +6,7 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {
-      animation: {
-        'scroll-slow': 'scroll 40s linear infinite',
-        'float': 'float 6s ease-in-out infinite',
-        'float-delayed': 'float 6s ease-in-out infinite',
-      },
-    },
+    extend: {},
   },
   plugins: [],
 } 
