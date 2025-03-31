@@ -26,7 +26,6 @@ const EducationSection: React.FC = () => {
         <SectionHeader title="Education" />
         
         <div className="p-8 md:p-10 rounded-3xl bg-zinc-900/90 border border-zinc-800/50 hover:shadow-2xl transition-all duration-300">
-          University Info
           <div className="flex flex-col lg:flex-row gap-10 items-start">
             <div className="flex-1">
               {/* Logo and Name */}
