@@ -26,14 +26,14 @@ const EducationSection: React.FC = () => {
         <SectionHeader title="Education" />
         
         <div className="p-8 md:p-10 rounded-3xl bg-zinc-900/90 border border-zinc-800/50 hover:shadow-2xl transition-all duration-300">
-          {/* University Info */}
+          University Info
           <div className="flex flex-col lg:flex-row gap-10 items-start">
             <div className="flex-1">
               {/* Logo and Name */}
               <div className="flex items-center gap-6 mb-8">
                 <div className="relative w-24 h-24 rounded-2xl overflow-hidden bg-white/95 p-2 shadow-xl">
                   <Image 
-                    src="/images/nthu.png"
+                    src={process.env.GITHUB_ACTIONS ? '/vincentlimardi.github.io/images/nthu.png' : '/images/nthu.png'}
                     alt="NTHU Logo"
                     width={96}
                     height={96}
