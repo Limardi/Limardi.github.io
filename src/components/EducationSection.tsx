@@ -32,7 +32,7 @@ const EducationSection: React.FC = () => {
               <div className="flex items-center gap-6 mb-8">
                 <div className="relative w-24 h-24 rounded-2xl overflow-hidden bg-white/95 p-2 shadow-xl">
                   <Image 
-                    src={process.env.GITHUB_ACTIONS ? '/vincentlimardi.github.io/images/nthu.png' : '/images/nthu.png'}
+                    src="/images/nthu.png"
                     alt="NTHU Logo"
                     width={96}
                     height={96}
