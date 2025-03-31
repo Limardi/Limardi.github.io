@@ -5,6 +5,7 @@ const nextConfig = {
     unoptimized: true,
   },
   useFileSystemPublicRoutes: true,
+  basePath: '',
 }
 
 module.exports = nextConfig 
