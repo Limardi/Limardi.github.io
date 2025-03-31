@@ -5,8 +5,7 @@ const nextConfig = {
     unoptimized: true,
   },
   useFileSystemPublicRoutes: true,
-  basePath: '/vincentlimardi.github.io',
-  assetPrefix: '/vincentlimardi.github.io/',
+  basePath: '',
 }
 
 module.exports = nextConfig 
