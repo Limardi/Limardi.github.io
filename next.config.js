@@ -4,8 +4,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: process.env.GITHUB_ACTIONS ? '/vincentlimardi.github.io' : '',
-  assetPrefix: process.env.GITHUB_ACTIONS ? '/vincentlimardi.github.io/' : '',
+  basePath: process.env.GITHUB_ACTIONS ? '/Limardi.github.io' : '',
+  assetPrefix: process.env.GITHUB_ACTIONS ? '/Limardi.github.io/' : '',
 }
 
 module.exports = nextConfig 
