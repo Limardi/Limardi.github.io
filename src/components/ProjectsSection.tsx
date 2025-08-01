@@ -2,7 +2,7 @@
 
 import React from 'react';
 import SectionHeader from './common/SectionHeader';
-import Image from 'next/image';
+// import Image from 'next/image';
 
 interface Project {
   title: string;
@@ -69,30 +69,43 @@ const ProjectsSection: React.FC = () => {
       <div className="section-container">
         <SectionHeader title="Projects" />
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <div key={index} className="glass-card rounded-2xl overflow-hidden group">
-              <div className="aspect-video relative overflow-hidden">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  layout="fill"
-                  objectFit="cover"
-                  className="group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <div className="p-6 space-y-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl">{project.icon}</span>
-                  <span className="text-sm font-medium text-zinc-400">{project.category}</span>
+        {/* Carousel Container */}
+        <div className="relative">
+          {/* Project Display */}
+          <div className="flex justify-center items-center min-h-[600px]">
+            <div className="w-full max-w-4xl flex gap-8">
+              {/* Left Project Card */}
+              <div className="w-1/2 glass-card rounded-2xl overflow-hidden bg-gradient-to-br from-zinc-900/50 to-zinc-800/50 backdrop-blur-sm border border-zinc-700/50">
+                <div className="aspect-video relative overflow-hidden bg-gradient-to-br from-blue-900/20 to-purple-900/20 flex items-center justify-center">
+                  <div className="text-6xl">
+                    {projects[currentProject].icon}
+                  </div>
+                  <div className="absolute bottom-4 left-4 text-sm font-medium text-zinc-300">
+                    {projects[currentProject].category}
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-zinc-100">{project.title}</h3>
-                <p className="text-zinc-400">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, tagIndex) => (
+              </div>
+              
+              {/* Right Project Details */}
+              <div className="w-1/2 flex flex-col justify-center space-y-6">
+                <div className="space-y-2">
+                  <span className="inline-block px-3 py-1 text-xs font-semibold bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-full">
+                    {projects[currentProject].type}
+                  </span>
+                  <h3 className="text-3xl font-bold text-zinc-100">
+                    {projects[currentProject].title}
+                  </h3>
+                </div>
+                
+                <p className="text-zinc-400 text-lg leading-relaxed">
+                  {projects[currentProject].description}
+                </p>
+                
+                <div className="flex flex-wrap gap-3">
+                  {projects[currentProject].tags.map((tag, tagIndex) => (
                     <span 
                       key={tagIndex}
-                      className="px-3 py-1 text-sm rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20"
+                      className="px-4 py-2 text-sm font-medium rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:bg-blue-500/20 transition-colors"
                     >
                       {tag}
                     </span>
@@ -100,7 +113,41 @@ const ProjectsSection: React.FC = () => {
                 </div>
               </div>
             </div>
-          ))}
+          </div>
+          
+          {/* Navigation Arrows */}
+          <button
+            onClick={prevProject}
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-zinc-800/80 hover:bg-zinc-700/80 border border-zinc-600 rounded-full flex items-center justify-center transition-all duration-200 backdrop-blur-sm"
+          >
+            <svg className="w-6 h-6 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          
+          <button
+            onClick={nextProject}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-zinc-800/80 hover:bg-zinc-700/80 border border-zinc-600 rounded-full flex items-center justify-center transition-all duration-200 backdrop-blur-sm"
+          >
+            <svg className="w-6 h-6 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          
+          {/* Dots Indicator */}
+          <div className="flex justify-center mt-8 space-x-2">
+            {projects.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentProject(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                  index === currentProject 
+                    ? 'bg-blue-500' 
+                    : 'bg-zinc-600 hover:bg-zinc-500'
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
