@@ -109,13 +109,13 @@ const EducationSection: React.FC = () => {
           </div>
 
           {/* Relevant Coursework */}
-          <div className="mt-10 pt-10 border-t border-zinc-800">
-            <h4 className="text-xl font-semibold text-zinc-200 mb-6">Relevant Coursework</h4>
-            <div className="flex flex-wrap gap-3">
+          <div className="mt-6 sm:mt-8 lg:mt-10 pt-6 sm:pt-8 lg:pt-10 border-t border-zinc-800">
+            <h4 className="text-lg sm:text-xl font-semibold text-zinc-200 mb-4 sm:mb-6">Relevant Coursework</h4>
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               {courses.map((course, index) => (
                 <span 
                   key={index}
-                  className="px-4 py-2 rounded-full text-sm bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:bg-blue-500/20 transition-colors cursor-default"
+                  className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm bg-blue-500/10 text-blue-400 border border-blue-500/20 hover:bg-blue-500/20 transition-colors cursor-default"
                 >
                   {course}
                 </span>
