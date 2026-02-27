@@ -5,6 +5,9 @@ import Link from 'next/link';
 import SectionHeader from '@/components/common/SectionHeader';
 import PBRProjectSection from '@/components/PBRProjectSection';
 
+// Always fetch latest project data from Supabase on each request
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
     params: Promise<{ slug: string }>;
 }
