@@ -12,11 +12,16 @@
   },
   "dependencies": {
     "@pinecone-database/pinecone": "^6.1.1",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
+    "@supabase/supabase-js": "^2.97.0",
+    "@types/three": "^0.183.1",
     "langchain": "^0.3.29",
     "next": "^15.2.4",
     "openai": "^5.9.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "three": "^0.183.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.17",

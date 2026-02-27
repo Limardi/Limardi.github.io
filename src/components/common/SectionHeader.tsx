@@ -6,13 +6,13 @@ interface SectionHeaderProps {
 
 const SectionHeader: React.FC<SectionHeaderProps> = ({ title }) => {
   return (
-    <div className="space-y-4 mb-12">
-      <h2 className="text-3xl font-semibold text-zinc-200">
-        <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+    <div className="mb-10 sm:mb-12">
+      <div className="flex items-center gap-6">
+        <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-zinc-100">
           {title}
-        </span>
-      </h2>
-      <div className="w-20 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
+        </h2>
+        <div className="h-px flex-1 bg-zinc-800/80" />
+      </div>
     </div>
   );
 };

@@ -98,13 +98,6 @@ body {
   animation: scroll 40s linear infinite;
 }
 
-/* Ensure full width container */
-.w-full {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
-}
-
 @media (min-width: 640px) {
   .animate-scroll-slow {
     animation-duration: 40s;
