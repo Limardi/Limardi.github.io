@@ -122,7 +122,7 @@ export default function PBRProjectSection() {
                                     : 'text-zinc-500 hover:text-zinc-300'
                             }`}
                         >
-                            Side-by-Side Comparison
+                            Side-by-Side
                         </button>
                     </div>
                 </div>
