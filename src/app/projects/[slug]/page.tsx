@@ -1,9 +1,9 @@
 import { getProjectBySlug, getProjects } from '@/lib/queries';
 import { notFound } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
 import SectionHeader from '@/components/common/SectionHeader';
 import PBRProjectSection from '@/components/PBRProjectSection';
+import SafeImage from '@/components/common/SafeImage';
 
 // Always fetch latest project data from Supabase on each request
 export const dynamic = 'force-dynamic';
@@ -61,15 +61,17 @@ export default async function ProjectPage({ params }: PageProps) {
                 {project.title.toLowerCase().includes('pbr') || project.title.toLowerCase().includes('texture') ? (
                     <PBRProjectSection />
                 ) : (
-                    <div className="relative aspect-video w-full rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]">
-                        <Image
+                    <div className="relative aspect-video w-full rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] bg-zinc-900">
+                        <SafeImage
                             src={project.image}
                             alt={project.title}
                             fill
                             sizes="100vw"
                             className="object-cover"
                             priority
+                            iconClassName="w-14 h-14"
                         />
+
                         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
                     </div>
                 )}

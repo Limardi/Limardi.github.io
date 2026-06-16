@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import SectionHeader from './common/SectionHeader';
 import Image from 'next/image';
 import { getEducation } from '@/lib/queries';
 import type { Education } from '@/data/portfolio-data';
@@ -19,12 +18,10 @@ const EducationSection: React.FC = () => {
 
   if (loading) {
     return (
-      <section id="education" className="py-24 px-4 relative">
-        <div className="max-w-6xl mx-auto">
-          <SectionHeader title="Education" />
-          <div className="flex justify-center py-16">
-            <div className="w-8 h-8 border-2 border-white/20 border-t-white/70 rounded-full animate-spin" />
-          </div>
+      <section id="education" className="py-24 px-6">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl font-serif text-white mb-12">Education</h2>
+          <div className="w-8 h-8 border-2 border-white/20 border-t-white/70 rounded-full animate-spin" />
         </div>
       </section>
     );
@@ -33,106 +30,43 @@ const EducationSection: React.FC = () => {
   if (!education) return null;
 
   return (
-    <section id="education" className="py-24 px-4 relative">
-      <div className="max-w-6xl mx-auto">
-        <SectionHeader title="Education" />
+    <section id="education" className="py-24 px-6">
+      <div className="max-w-3xl mx-auto space-y-12">
+        <h2 className="text-2xl font-serif text-white">Education</h2>
 
-        <div className="p-8 md:p-10 rounded-3xl bg-zinc-900/90 border border-zinc-800/50 hover:shadow-2xl transition-all duration-300">
-          <div className="flex flex-col lg:flex-row gap-10 items-start">
-            <div className="flex-1">
-              {/* Logo and Name */}
-              <div className="flex items-center gap-6 mb-8">
-                <div className="relative w-24 h-24 rounded-2xl overflow-hidden bg-white/95 p-2 shadow-xl">
-                  <Image
-                    src="/images/nthu.png"
-                    alt="NTHU Logo"
-                    width={96}
-                    height={96}
-                    className="object-contain"
-                  />
-                </div>
-                <div>
-                  <h3 className="text-3xl font-bold text-zinc-50 mb-2">
-                    {education.institution}
-                  </h3>
-                  <p className="text-lg text-zinc-400 font-medium">國立清華大學, Taiwan</p>
-                </div>
-              </div>
-
-              {/* Degree Info */}
-              <div className="space-y-6 mb-10">
-                <div className="space-y-3">
-                  <h4 className="text-2xl text-zinc-100 font-bold">
-                    {education.degree}
-                  </h4>
-                  <p className="text-zinc-400 leading-relaxed text-lg">
-                    {education.focus.join(', ')}
-                  </p>
-                </div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zinc-800/50 text-zinc-400 border border-zinc-700/50">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  <span>{education.period}</span>
-                </div>
-              </div>
-
-              {/* Rankings */}
-              <div className="grid grid-cols-3 gap-4">
-                {education.rankings.map((item, index) => (
-                  <div
-                    key={index}
-                    className="p-5 rounded-2xl bg-white/5 border border-white/10 text-center hover:bg-white/10 transition-colors"
-                  >
-                    <span className="text-2xl mb-2 block">{item.icon}</span>
-                    <p className="text-zinc-400 text-sm mb-2">{item.region} Rank</p>
-                    <p className="text-3xl font-bold text-white">{item.rank}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Academic Stats */}
-            <div className="lg:w-80 space-y-6 bg-zinc-800/30 p-8 rounded-2xl border border-zinc-700/30">
-              <h4 className="text-xl font-semibold text-zinc-200">Academic Performance</h4>
-              <div className="space-y-6">
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-zinc-400">GPA</span>
-                    <span className="text-2xl font-bold text-white">{education.gpa}</span>
-                  </div>
-                  <div className="h-2 bg-white/10 rounded-full">
-                    <div className="h-full bg-white/70 rounded-full" style={{ width: `${(education.gpa / 4) * 100}%` }} />
-                  </div>
-                </div>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-zinc-400">T-Score</span>
-                    <span className="text-2xl font-bold text-white">{education.tScore}</span>
-                  </div>
-                  <div className="h-2 bg-white/10 rounded-full">
-                    <div className="h-full bg-white/70 rounded-full" style={{ width: `${(education.tScore / 60) * 100}%` }} />
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div className="flex items-start gap-6 p-6 bg-white/5 border border-white/10 rounded-xl">
+          <div className="w-16 h-16 rounded-lg overflow-hidden bg-white flex-shrink-0">
+            <Image
+              src="/images/nthu.png"
+              alt="NTHU"
+              width={64}
+              height={64}
+              className="object-contain"
+            />
           </div>
-
-          {/* Relevant Coursework */}
-          <div className="mt-6 sm:mt-8 lg:mt-10 pt-6 sm:pt-8 lg:pt-10 border-t border-zinc-800">
-            <h4 className="text-lg sm:text-xl font-semibold text-zinc-200 mb-4 sm:mb-6">Relevant Coursework</h4>
-            <div className="flex flex-wrap gap-2 sm:gap-3">
-              {education.courses.map((course, index) => (
-                <span
-                  key={index}
-                  className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm bg-white/5 text-zinc-200 border border-white/10 hover:bg-white/10 transition-colors cursor-default"
-                >
-                  {course}
-                </span>
-              ))}
-            </div>
+          <div className="flex-1 space-y-2">
+            <h3 className="text-xl font-medium text-white">{education.institution}</h3>
+            <p className="text-zinc-400">{education.degree}</p>
+            <p className="text-sm text-zinc-500">{education.period}</p>
           </div>
+        </div>
+
+        <div className="grid grid-cols-3 gap-4">
+          {education.rankings.map((item, index) => (
+            <div key={index} className="p-4 bg-white/5 border border-white/10 rounded-xl text-center">
+              <p className="text-2xl mb-1">{item.icon}</p>
+              <p className="text-xs text-zinc-500">{item.region} Rank</p>
+              <p className="text-lg font-medium text-white">{item.rank}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          {education.courses.map((course, index) => (
+            <span key={index} className="px-3 py-1.5 text-xs bg-white/5 text-zinc-300 rounded-lg border border-white/10">
+              {course}
+            </span>
+          ))}
         </div>
       </div>
     </section>
