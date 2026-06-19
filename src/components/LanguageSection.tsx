@@ -1,8 +1,49 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import SectionHeader from '@/components/common/SectionHeader';
+import Reveal from '@/components/common/Reveal';
+import { SkeletonCard } from '@/components/common/Skeleton';
 import { getLanguages } from '@/lib/queries';
 import type { Language } from '@/data/portfolio-data';
+
+function LanguageBar({ percentage }: { percentage: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setActive(true);
+      return;
+    }
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActive(true);
+            io.disconnect();
+            break;
+          }
+        }
+      },
+      { threshold: 0.3 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+      <div
+        className="h-full bg-white rounded-full transition-[width] duration-1000 ease-out-strong"
+        style={{ width: active ? `${percentage}%` : '0%' }}
+      />
+    </div>
+  );
+}
 
 const LanguageSection: React.FC = () => {
   const [languages, setLanguages] = React.useState<Language[]>([]);
@@ -18,24 +59,25 @@ const LanguageSection: React.FC = () => {
   return (
     <section id="languages" className="py-24 px-6">
       <div className="max-w-3xl mx-auto space-y-12">
-        <h2 className="text-2xl font-serif text-white">Languages</h2>
+        <SectionHeader eyebrow="05" title="Languages" variant="serif" />
 
         {loading ? (
-          <div className="w-8 h-8 border-2 border-white/20 border-t-white/70 rounded-full animate-spin" />
+          <div className="grid md:grid-cols-3 gap-4">
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
         ) : (
           <div className="grid md:grid-cols-3 gap-4">
             {languages.map((lang, index) => (
-              <div key={index} className="p-5 bg-white/5 border border-white/10 rounded-xl">
-                <h3 className="text-lg font-medium text-white mb-3">{lang.name}</h3>
-                <p className="text-sm text-zinc-400 mb-3">{lang.level}</p>
-                <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-white rounded-full"
-                    style={{ width: `${lang.percentage}%` }}
-                  />
+              <Reveal key={index} delay={index * 60} className="h-full">
+                <div className="h-full p-5 bg-white/5 border border-white/10 rounded-xl transition-[transform,border-color,background-color] duration-300 ease-out-strong hover:-translate-y-0.5 hover:bg-white/[0.07] hover:border-white/20">
+                  <h3 className="text-lg font-medium text-white mb-3">{lang.name}</h3>
+                  <p className="text-sm text-zinc-400 mb-3">{lang.level}</p>
+                  <LanguageBar percentage={lang.percentage} />
+                  <p className="text-xs text-zinc-500 mt-2">{lang.percentage}%</p>
                 </div>
-                <p className="text-xs text-zinc-500 mt-2">{lang.percentage}%</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         )}

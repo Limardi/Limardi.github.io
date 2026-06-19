@@ -2,9 +2,28 @@ import React from 'react';
 
 interface SectionHeaderProps {
   title: string;
+  eyebrow?: string;
+  variant?: 'sans' | 'serif';
 }
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({ title }) => {
+const SectionHeader: React.FC<SectionHeaderProps> = ({
+  title,
+  eyebrow,
+  variant = 'sans',
+}) => {
+  if (variant === 'serif') {
+    return (
+      <div className="space-y-3">
+        {eyebrow && (
+          <p className="text-xs font-medium text-zinc-500 uppercase tracking-[0.2em]">
+            {eyebrow}
+          </p>
+        )}
+        <h2 className="text-3xl sm:text-4xl font-serif text-white">{title}</h2>
+      </div>
+    );
+  }
+
   return (
     <div className="mb-10 sm:mb-12">
       <div className="flex items-center gap-6">
@@ -17,4 +36,4 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title }) => {
   );
 };
 
-export default SectionHeader; 
+export default SectionHeader;

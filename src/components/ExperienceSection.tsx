@@ -1,6 +1,9 @@
 'use client';
 
 import React from 'react';
+import SectionHeader from '@/components/common/SectionHeader';
+import Reveal from '@/components/common/Reveal';
+import { SkeletonCard } from '@/components/common/Skeleton';
 import { getExperience } from '@/lib/queries';
 import type { Experience } from '@/data/portfolio-data';
 
@@ -18,22 +21,24 @@ const ExperienceSection: React.FC = () => {
   return (
     <section id="experience" className="py-24 px-6">
       <div className="max-w-3xl mx-auto space-y-12">
-        <h2 className="text-2xl font-serif text-white">Experience</h2>
+        <SectionHeader eyebrow="01" title="Experience" variant="serif" />
 
         {loading ? (
-          <div className="w-8 h-8 border-2 border-white/20 border-t-white/70 rounded-full animate-spin" />
+          <div className="space-y-6">
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
         ) : (
           <div className="relative">
-            {/* Timeline line */}
             <div className="absolute left-[19px] top-3 bottom-3 w-px bg-white/10 hidden sm:block" />
 
             <div className="space-y-6">
               {experiences.map((exp, index) => (
-                <div key={exp.id ?? index} className="relative sm:pl-14">
-                  {/* Timeline dot */}
-                  <div className="absolute left-[15px] top-6 w-2 h-2 rounded-full bg-white/40 hidden sm:block" />
+                <Reveal key={exp.id ?? index} delay={index * 60} className="relative sm:pl-14">
+                  <div className="absolute left-[15px] top-7 w-2 h-2 rounded-full bg-white/40 hidden sm:block" />
 
-                  <div className="p-6 bg-white/5 border border-white/10 rounded-xl">
+                  <div className="p-6 bg-white/5 border border-white/10 rounded-xl transition-[transform,border-color,background-color] duration-300 ease-out-strong hover:-translate-y-0.5 hover:bg-white/[0.07] hover:border-white/20">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
                       <div>
                         <h3 className="text-lg font-medium text-white">{exp.role}</h3>
@@ -62,7 +67,7 @@ const ExperienceSection: React.FC = () => {
                       </div>
                     )}
                   </div>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>

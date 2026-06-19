@@ -15,11 +15,11 @@ const ProfileHeader: React.FC = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-zinc-950/80 backdrop-blur-md border-b border-white/5">
         <span className="font-serif text-lg font-medium text-white">VL</span>
         <div className="flex items-center gap-6">
-          {navItems.slice(0, 3).map((item) => (
+          {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm text-zinc-400 hover:text-white transition-colors"
+              className="text-sm text-zinc-400 hover:text-white transition-colors duration-200 ease-out-strong"
             >
               {item.label}
             </a>
@@ -30,7 +30,11 @@ const ProfileHeader: React.FC = () => {
       <div className="flex-1 flex flex-col items-center justify-center px-6 pt-20">
         <div className="text-center max-w-2xl space-y-8">
           <div className="space-y-4">
-            <p className="text-sm font-medium text-zinc-500 uppercase tracking-widest">
+            <p className="inline-flex items-center gap-2 text-sm font-medium text-zinc-500 uppercase tracking-widest">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60 animate-ping" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              </span>
               Available for opportunities
             </p>
             <h1 className="text-5xl sm:text-7xl font-serif font-medium text-white leading-tight">
@@ -44,7 +48,7 @@ const ProfileHeader: React.FC = () => {
           <div className="flex items-center justify-center gap-4 pt-4">
             <a
               href="#projects"
-              className="px-6 py-3 text-sm font-medium text-zinc-950 bg-white hover:bg-zinc-200 transition-colors"
+              className="px-6 py-3 text-sm font-medium text-zinc-950 bg-white rounded-lg transition-[transform,background-color] duration-200 ease-out-strong hover:bg-zinc-200 active:scale-[0.97]"
             >
               View Projects
             </a>
@@ -52,7 +56,7 @@ const ProfileHeader: React.FC = () => {
               href="https://github.com/Limardi"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 text-sm font-medium text-white border border-white/20 hover:bg-white/10 transition-colors"
+              className="px-6 py-3 text-sm font-medium text-white border border-white/20 rounded-lg transition-[transform,background-color,border-color] duration-200 ease-out-strong hover:bg-white/10 hover:border-white/30 active:scale-[0.97]"
             >
               GitHub
             </a>
