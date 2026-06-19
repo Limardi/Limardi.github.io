@@ -18,6 +18,7 @@ create table if not exists personal_info (
     phone text not null,
     github text not null,
     linkedin text,
+    instagram text,
     about text not null,
     interests text [] not null default '{}',
     updated_at timestamptz default now()
@@ -40,6 +41,7 @@ create table if not exists projects (
     github_url text,
     live_url text,
     image text,
+    video_url text,
     type text not null,
     sort_order int not null default 0,
     created_at timestamptz default now()
@@ -59,6 +61,8 @@ create table if not exists experience (
     achievements text [] not null default '{}',
     technologies text [] not null default '{}',
     impact text [] not null default '{}',
+    start_date date,
+    end_date date,
     sort_order int not null default 0,
     created_at timestamptz default now()
 );
@@ -108,6 +112,8 @@ create table if not exists organizations (
     period text not null,
     responsibilities text [] not null default '{}',
     impact text [] not null default '{}',
+    start_date date,
+    end_date date,
     sort_order int not null default 0,
     created_at timestamptz default now()
 );
@@ -177,6 +183,8 @@ insert into
         email,
         phone,
         github,
+        linkedin,
+        instagram,
         about,
         interests
     )
@@ -187,6 +195,8 @@ values (
         'vincentlimardi234@gmail.com',
         '+886 976 972 122',
         'https://github.com/Limardi',
+        'https://www.linkedin.com/in/vincent-limardi',
+        'https://www.instagram.com/v.limardi',
         'Full-stack developer passionate about creating elegant solutions. Currently pursuing a degree in Electrical Engineering and Computer Science at National Tsing Hua University. Experienced in web development, machine learning, and mobile applications.',
         array[
             'Machine Learning and AI',
@@ -522,3 +532,22 @@ values (
         null,
         3
     );
+
+-- ============================================================
+-- Structured dates backfill (see migration 0002). end_date NULL = present.
+-- ============================================================
+update experience set start_date = date '2023-07-01', end_date = date '2023-09-30' where slug = 'icode-intern';
+update experience set start_date = date '2024-10-01', end_date = null            where slug = 'research-assistant';
+update experience set start_date = date '2024-06-01', end_date = date '2024-07-31' where slug = 'teaching-assistant';
+
+update organizations set start_date = date '2024-03-01', end_date = null            where slug = 'eecs-gsa';
+update organizations set start_date = date '2024-08-01', end_date = null            where slug = 'ppi-hsinchu';
+update organizations set start_date = date '2024-06-01', end_date = date '2024-07-31' where slug = 'nthu-ibp';
+
+-- ============================================================
+-- Project hero video (see migration 0004).
+-- ============================================================
+update projects
+set video_url = '/images/kitchen-learning_video.mp4',
+    image = '/images/kitchen-learning_figure.png'
+where slug = 'kitchen-learning';

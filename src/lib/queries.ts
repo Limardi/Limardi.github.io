@@ -1,200 +1,119 @@
-import { supabase } from './supabase';
+import { cache } from 'react';
+import { supabase } from '@/lib/supabase/client';
+import { periodRange, PRESENT } from '@/lib/period';
+import {
+  mapPersonalInfo,
+  mapProject,
+  mapExperience,
+  mapEducation,
+  mapSkill,
+  mapOrganization,
+  mapLanguage,
+} from '@/lib/mappers';
 import type {
-    Project,
-    Experience,
-    Education,
-    Organization,
-    Language,
-} from '../data/portfolio-data';
+  PortfolioData,
+  PersonalInfo,
+  Project,
+  Experience,
+  Education,
+  Skill,
+  Organization,
+  Language,
+} from '@/data/portfolio-data';
 
-const MONTH_TO_INDEX: Record<string, number> = {
-    jan: 1,
-    january: 1,
-    feb: 2,
-    february: 2,
-    mar: 3,
-    march: 3,
-    apr: 4,
-    april: 4,
-    may: 5,
-    jun: 6,
-    june: 6,
-    jul: 7,
-    july: 7,
-    aug: 8,
-    august: 8,
-    sep: 9,
-    sept: 9,
-    september: 9,
-    oct: 10,
-    october: 10,
-    nov: 11,
-    november: 11,
-    dec: 12,
-    december: 12,
-};
-
-const parseMonthYearToken = (token: string): { year: number; month: number } | null => {
-    const trimmed = token.trim().toLowerCase();
-    if (!trimmed) return null;
-    if (trimmed === 'present' || trimmed === 'current' || trimmed === 'now') {
-        return { year: 9999, month: 12 };
-    }
-
-    // e.g. "Oct 2024", "July 2023", "2024"
-    const parts = trimmed.split(/\s+/);
-    if (parts.length === 1) {
-        const year = Number(parts[0]);
-        if (!Number.isNaN(year) && year > 1900 && year < 3000) {
-            return { year, month: 12 };
-        }
-        return null;
-    }
-
-    const year = Number(parts[parts.length - 1]);
-    if (Number.isNaN(year)) return null;
-
-    const monthKey = parts.slice(0, -1).join(' ');
-    const month = MONTH_TO_INDEX[monthKey] ?? MONTH_TO_INDEX[parts[0]];
-    if (!month) return null;
-
-    return { year, month };
-};
-
-const getExperienceSortValue = (period: string): number => {
-    if (!period) return 0;
-    const normalized = period.replace(/–/g, '-');
-    const segments = normalized.split('-');
-    const endToken = segments.length > 1 ? segments[segments.length - 1] : segments[0];
-    const parsed = parseMonthYearToken(endToken);
-    if (!parsed) return 0;
-    return parsed.year * 100 + parsed.month;
-};
-
-export async function getProjects(): Promise<Project[]> {
-    const { data, error } = await supabase
-        .from('projects')
-        .select('*')
-        .order('sort_order');
-    if (error) { console.error('getProjects:', error); return []; }
-    return data.map((r) => ({
-        id: r.slug,
-        title: r.title,
-        category: r.category,
-        description: r.description,
-        detailedDescription: r.detailed_description,
-        technologies: r.technologies,
-        challenges: r.challenges,
-        solutions: r.solutions,
-        outcomes: r.outcomes,
-        githubUrl: r.github_url,
-        liveUrl: r.live_url,
-        image: r.image,
-        type: r.type,
-    }));
+// ---------------------------------------------------------------------------
+// Reliability: every query throws on a Supabase error instead of silently
+// returning empty data. Combined with ISR (revalidate on the pages), a failed
+// revalidation keeps serving the last good static render, and a failed build
+// fails loudly rather than shipping a blank CV.
+// ---------------------------------------------------------------------------
+function fail(where: string, message: string): never {
+  throw new Error(`[queries] ${where}: ${message}`);
 }
 
-export async function getProjectBySlug(slug: string): Promise<Project | null> {
-    const { data, error } = await supabase
-        .from('projects')
-        .select('*')
-        .eq('slug', slug)
-        .single();
+// Reverse-chronological ordering. Prefers structured start_date / end_date when
+// present (end_date null === ongoing), and falls back to parsing the free-text
+// `period` label when an entry has no structured dates yet (before migration
+// 0002 is applied). This keeps ordering correct in both states.
+type DatedEntry = { period: string; startDate?: string | null; endDate?: string | null };
 
-    if (error) {
-        console.error('getProjectBySlug:', error);
-        return null;
-    }
-
+function rankOf(i: DatedEntry): { start: number; end: number } {
+  if (i.startDate) {
     return {
-        id: data.slug,
-        title: data.title,
-        category: data.category,
-        description: data.description,
-        detailedDescription: data.detailed_description,
-        technologies: data.technologies,
-        challenges: data.challenges,
-        solutions: data.solutions,
-        outcomes: data.outcomes,
-        githubUrl: data.github_url,
-        liveUrl: data.live_url,
-        image: data.image,
-        type: data.type,
+      start: Date.parse(i.startDate),
+      end: i.endDate ? Date.parse(i.endDate) : PRESENT,
     };
+  }
+  return periodRange(i.period);
 }
 
-export async function getExperience(): Promise<Experience[]> {
-    const { data, error } = await supabase
-        .from('experience')
-        .select('*')
-        .order('sort_order');
-    if (error) { console.error('getExperience:', error); return []; }
-    const mapped = data.map((r) => ({
-        id: r.slug,
-        role: r.role,
-        company: r.company,
-        location: r.location,
-        period: r.period,
-        description: r.description,
-        achievements: r.achievements,
-        technologies: r.technologies,
-        impact: r.impact,
-    }));
-    return mapped.sort((a, b) => {
-        const delta = getExperienceSortValue(b.period) - getExperienceSortValue(a.period);
-        if (delta !== 0) return delta;
-        // deterministic fallback when periods can't be parsed or are equal
-        return a.role.localeCompare(b.role);
-    });
+function byRecencyDesc<T extends DatedEntry>(a: T, b: T): number {
+  const ra = rankOf(a);
+  const rb = rankOf(b);
+  if (rb.end !== ra.end) return rb.end - ra.end;
+  return rb.start - ra.start;
 }
 
-export async function getEducation(): Promise<Education | null> {
-    const { data, error } = await supabase
-        .from('education')
-        .select('*')
-        .limit(1)
-        .single();
-    if (error) { console.error('getEducation:', error); return null; }
-    return {
-        institution: data.institution,
-        degree: data.degree,
-        period: data.period,
-        gpa: data.gpa,
-        tScore: data.t_score,
-        rankings: data.rankings,
-        courses: data.courses,
-        focus: data.focus,
-    };
-}
+export const getPersonalInfo = cache(async (): Promise<PersonalInfo> => {
+  const { data, error } = await supabase.from('personal_info').select('*').limit(1).single();
+  if (error) fail('getPersonalInfo', error.message);
+  return mapPersonalInfo(data);
+});
 
+export const getProjects = cache(async (): Promise<Project[]> => {
+  const { data, error } = await supabase.from('projects').select('*').order('sort_order');
+  if (error) fail('getProjects', error.message);
+  return data.map(mapProject);
+});
 
-export async function getOrganizations(): Promise<Organization[]> {
-    const { data, error } = await supabase
-        .from('organizations')
-        .select('*')
-        .order('sort_order');
-    if (error) { console.error('getOrganizations:', error); return []; }
-    return data.map((r) => ({
-        id: r.slug,
-        name: r.name,
-        role: r.role,
-        period: r.period,
-        responsibilities: r.responsibilities,
-        impact: r.impact,
-    }));
-}
+export const getProjectBySlug = cache(async (slug: string): Promise<Project | null> => {
+  const { data, error } = await supabase.from('projects').select('*').eq('slug', slug).maybeSingle();
+  if (error) fail('getProjectBySlug', error.message);
+  return data ? mapProject(data) : null;
+});
 
-export async function getLanguages(): Promise<Language[]> {
-    const { data, error } = await supabase
-        .from('languages')
-        .select('*')
-        .order('sort_order');
-    if (error) { console.error('getLanguages:', error); return []; }
-    return data.map((r) => ({
-        name: r.name,
-        level: r.level,
-        percentage: r.percentage,
-        certification: r.certification,
-    }));
-}
+export const getExperience = cache(async (): Promise<Experience[]> => {
+  const { data, error } = await supabase.from('experience').select('*').order('sort_order');
+  if (error) fail('getExperience', error.message);
+  return data.map(mapExperience).sort(byRecencyDesc);
+});
 
+export const getEducation = cache(async (): Promise<Education | null> => {
+  const { data, error } = await supabase.from('education').select('*').limit(1).maybeSingle();
+  if (error) fail('getEducation', error.message);
+  return data ? mapEducation(data) : null;
+});
+
+export const getSkills = cache(async (): Promise<Skill[]> => {
+  const { data, error } = await supabase.from('skills').select('*').order('sort_order');
+  if (error) fail('getSkills', error.message);
+  return data.map(mapSkill);
+});
+
+export const getOrganizations = cache(async (): Promise<Organization[]> => {
+  const { data, error } = await supabase.from('organizations').select('*').order('sort_order');
+  if (error) fail('getOrganizations', error.message);
+  return data.map(mapOrganization).sort(byRecencyDesc);
+});
+
+export const getLanguages = cache(async (): Promise<Language[]> => {
+  const { data, error } = await supabase.from('languages').select('*').order('sort_order');
+  if (error) fail('getLanguages', error.message);
+  return data.map(mapLanguage);
+});
+
+// Single aggregate accessor: one parallel fetch for the whole homepage, and the
+// stable seam a future AI/RAG feature can consume.
+export const getPortfolio = cache(async (): Promise<PortfolioData> => {
+  const [personal, experience, education, projects, organizations, languages, skills] =
+    await Promise.all([
+      getPersonalInfo(),
+      getExperience(),
+      getEducation(),
+      getProjects(),
+      getOrganizations(),
+      getLanguages(),
+      getSkills(),
+    ]);
+  return { personal, experience, education, projects, organizations, languages, skills };
+});

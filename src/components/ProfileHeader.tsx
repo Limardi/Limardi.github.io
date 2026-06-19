@@ -1,6 +1,5 @@
-'use client';
-
 import React from 'react';
+import type { PersonalInfo } from '@/data/portfolio-data';
 
 const navItems = [
   { label: 'Experience', href: '#experience' },
@@ -9,11 +8,22 @@ const navItems = [
   { label: 'Contact', href: '#contact' },
 ];
 
-const ProfileHeader: React.FC = () => {
+interface ProfileHeaderProps {
+  personal: PersonalInfo;
+}
+
+const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal }) => {
+  const initials = personal.name
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
+
   return (
     <header className="relative min-h-screen flex flex-col">
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-zinc-950/80 backdrop-blur-md border-b border-white/5">
-        <span className="font-serif text-lg font-medium text-white">VL</span>
+        <span className="font-serif text-lg font-medium text-white">{initials}</span>
         <div className="flex items-center gap-6">
           {navItems.map((item) => (
             <a
@@ -38,7 +48,7 @@ const ProfileHeader: React.FC = () => {
               Available for opportunities
             </p>
             <h1 className="text-5xl sm:text-7xl font-serif font-medium text-white leading-tight">
-              I&apos;m Vincent Limardi
+              I&apos;m {personal.name}
             </h1>
             <p className="text-lg sm:text-xl text-zinc-400 max-w-lg mx-auto leading-relaxed">
               Building solutions at the intersection of technology and real-world impact.
@@ -53,7 +63,7 @@ const ProfileHeader: React.FC = () => {
               View Projects
             </a>
             <a
-              href="https://github.com/Limardi"
+              href={personal.github}
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 text-sm font-medium text-white border border-white/20 rounded-lg transition-[transform,background-color,border-color] duration-200 ease-out-strong hover:bg-white/10 hover:border-white/30 active:scale-[0.97]"

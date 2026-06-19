@@ -1,3 +1,5 @@
+import { existsSync } from 'node:fs';
+import path from 'node:path';
 import { getProjectBySlug, getProjects } from '@/lib/queries';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -5,17 +7,24 @@ import SectionHeader from '@/components/common/SectionHeader';
 import PBRProjectSection from '@/components/PBRProjectSection';
 import SafeImage from '@/components/common/SafeImage';
 
-// Always fetch latest project data from Supabase on each request
-export const dynamic = 'force-dynamic';
+// Statically generate each project page and revalidate hourly (ISR).
+export const revalidate = 3600;
 
 interface PageProps {
     params: Promise<{ slug: string }>;
 }
 
+// Returns the path only if the file actually exists in /public. Runs on the
+// server at build / revalidation time.
+function resolvePublicAsset(p?: string): string | undefined {
+    if (!p) return undefined;
+    return existsSync(path.join(process.cwd(), 'public', p)) ? p : undefined;
+}
+
 export async function generateStaticParams() {
     const projects = await getProjects();
     return projects.map((project) => ({
-        slug: project.id,
+        slug: project.slug,
     }));
 }
 
@@ -26,6 +35,15 @@ export default async function ProjectPage({ params }: PageProps) {
     if (!project) {
         notFound();
     }
+
+    // Prefer the DB value; otherwise fall back to the /public file convention so
+    // the media works even before migration 0004 is applied.
+    const videoUrl =
+        resolvePublicAsset(project.videoUrl) ??
+        resolvePublicAsset(`/images/${project.slug}_video.mp4`);
+    const posterUrl =
+        resolvePublicAsset(project.image) ??
+        resolvePublicAsset(`/images/${project.slug}_figure.png`);
 
     return (
         <main className="min-h-screen bg-zinc-950 text-zinc-100 pt-24 pb-32 px-4 relative">
@@ -58,7 +76,18 @@ export default async function ProjectPage({ params }: PageProps) {
                 </div>
 
                 {/* Hero Media */}
-                {project.title.toLowerCase().includes('pbr') || project.title.toLowerCase().includes('texture') ? (
+                {videoUrl ? (
+                    <div className="relative aspect-video w-full rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] bg-zinc-900">
+                        <video
+                            src={videoUrl}
+                            poster={posterUrl}
+                            controls
+                            playsInline
+                            preload="metadata"
+                            className="absolute inset-0 w-full h-full object-cover"
+                        />
+                    </div>
+                ) : project.title.toLowerCase().includes('pbr') || project.title.toLowerCase().includes('texture') ? (
                     <PBRProjectSection />
                 ) : (
                     <div className="relative aspect-video w-full rounded-[2.5rem] overflow-hidden border border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] bg-zinc-900">

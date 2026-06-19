@@ -3,8 +3,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import SectionHeader from '@/components/common/SectionHeader';
 import Reveal from '@/components/common/Reveal';
-import { SkeletonCard } from '@/components/common/Skeleton';
-import { getLanguages } from '@/lib/queries';
 import type { Language } from '@/data/portfolio-data';
 
 function LanguageBar({ percentage }: { percentage: number }) {
@@ -45,42 +43,30 @@ function LanguageBar({ percentage }: { percentage: number }) {
   );
 }
 
-const LanguageSection: React.FC = () => {
-  const [languages, setLanguages] = React.useState<Language[]>([]);
-  const [loading, setLoading] = React.useState(true);
+interface LanguageSectionProps {
+  items: Language[];
+}
 
-  React.useEffect(() => {
-    getLanguages().then((data) => {
-      setLanguages(data);
-      setLoading(false);
-    });
-  }, []);
+const LanguageSection: React.FC<LanguageSectionProps> = ({ items }) => {
+  if (items.length === 0) return null;
 
   return (
     <section id="languages" className="py-24 px-6">
       <div className="max-w-3xl mx-auto space-y-12">
         <SectionHeader eyebrow="05" title="Languages" variant="serif" />
 
-        {loading ? (
-          <div className="grid md:grid-cols-3 gap-4">
-            <SkeletonCard />
-            <SkeletonCard />
-            <SkeletonCard />
-          </div>
-        ) : (
-          <div className="grid md:grid-cols-3 gap-4">
-            {languages.map((lang, index) => (
-              <Reveal key={index} delay={index * 60} className="h-full">
-                <div className="h-full p-5 bg-white/5 border border-white/10 rounded-xl transition-[transform,border-color,background-color] duration-300 ease-out-strong hover:-translate-y-0.5 hover:bg-white/[0.07] hover:border-white/20">
-                  <h3 className="text-lg font-medium text-white mb-3">{lang.name}</h3>
-                  <p className="text-sm text-zinc-400 mb-3">{lang.level}</p>
-                  <LanguageBar percentage={lang.percentage} />
-                  <p className="text-xs text-zinc-500 mt-2">{lang.percentage}%</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        )}
+        <div className="grid md:grid-cols-3 gap-4">
+          {items.map((lang, index) => (
+            <Reveal key={index} delay={index * 60} className="h-full">
+              <div className="h-full p-5 bg-white/5 border border-white/10 rounded-xl transition-[transform,border-color,background-color] duration-300 ease-out-strong hover:-translate-y-0.5 hover:bg-white/[0.07] hover:border-white/20">
+                <h3 className="text-lg font-medium text-white mb-3">{lang.name}</h3>
+                <p className="text-sm text-zinc-400 mb-3">{lang.level}</p>
+                <LanguageBar percentage={lang.percentage} />
+                <p className="text-xs text-zinc-500 mt-2">{lang.percentage}%</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -1,15 +1,20 @@
+// App-facing domain types. These are the camelCase shapes the UI consumes;
+// raw snake_case database rows are mapped into these in src/lib/mappers.ts.
+// `PortfolioData` is the single aggregate returned by getPortfolio() and is the
+// intended seam for any future AI/RAG feature over the portfolio.
+
 export interface PortfolioData {
-  projects: Project[];
+  personal: PersonalInfo;
   experience: Experience[];
-  education: Education;
-  skills: Skill[];
+  education: Education | null;
+  projects: Project[];
   organizations: Organization[];
   languages: Language[];
-  personal: PersonalInfo;
+  skills: Skill[];
 }
 
 export interface Project {
-  id: string;
+  slug: string;
   title: string;
   category: string;
   description: string;
@@ -21,15 +26,21 @@ export interface Project {
   githubUrl?: string;
   liveUrl?: string;
   image: string;
+  videoUrl?: string;
   type: string;
 }
 
 export interface Experience {
-  id: string;
+  slug: string;
   role: string;
   company: string;
   location?: string;
   period: string;
+  // ISO dates (YYYY-MM-DD) when available; endDate null === "Present". Used for
+  // reliable reverse-chronological ordering. Optional so the UI works before the
+  // structured-dates migration is applied.
+  startDate?: string | null;
+  endDate?: string | null;
   description: string;
   achievements: string[];
   technologies: string[];
@@ -40,8 +51,8 @@ export interface Education {
   institution: string;
   degree: string;
   period: string;
-  gpa: number;
-  tScore: number;
+  gpa: number | null;
+  tScore: number | null;
   rankings: Ranking[];
   courses: string[];
   focus: string[];
@@ -60,10 +71,12 @@ export interface Skill {
 }
 
 export interface Organization {
-  id: string;
+  slug: string;
   name: string;
   role: string;
   period: string;
+  startDate?: string | null;
+  endDate?: string | null;
   responsibilities: string[];
   impact: string[];
 }
@@ -83,6 +96,7 @@ export interface PersonalInfo {
   phone: string;
   github: string;
   linkedin?: string;
+  instagram?: string;
   about: string;
   interests: string[];
 }

@@ -1,35 +1,14 @@
-'use client';
-
 import React from 'react';
 import Image from 'next/image';
 import SectionHeader from '@/components/common/SectionHeader';
 import Reveal from '@/components/common/Reveal';
-import { SkeletonCard } from '@/components/common/Skeleton';
-import { getEducation } from '@/lib/queries';
 import type { Education } from '@/data/portfolio-data';
 
-const EducationSection: React.FC = () => {
-  const [education, setEducation] = React.useState<Education | null>(null);
-  const [loading, setLoading] = React.useState(true);
+interface EducationSectionProps {
+  education: Education | null;
+}
 
-  React.useEffect(() => {
-    getEducation().then((data) => {
-      setEducation(data);
-      setLoading(false);
-    });
-  }, []);
-
-  if (loading) {
-    return (
-      <section id="education" className="py-24 px-6">
-        <div className="max-w-3xl mx-auto space-y-12">
-          <SectionHeader eyebrow="02" title="Education" variant="serif" />
-          <SkeletonCard className="h-32" />
-        </div>
-      </section>
-    );
-  }
-
+const EducationSection: React.FC<EducationSectionProps> = ({ education }) => {
   if (!education) return null;
 
   return (

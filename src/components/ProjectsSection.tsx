@@ -1,57 +1,28 @@
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import SafeImage from './common/SafeImage';
 import SectionHeader from './common/SectionHeader';
 import Reveal from './common/Reveal';
-import { Skeleton } from './common/Skeleton';
-import { getProjects } from '@/lib/queries';
 import type { Project } from '@/data/portfolio-data';
 
-const ProjectsSection: React.FC = () => {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+interface ProjectsSectionProps {
+  projects: Project[];
+}
+
+const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
   const [activeCategory, setActiveCategory] = useState<string>('All');
 
-  useEffect(() => {
-    getProjects().then((data) => {
-      setProjects(data);
-      setLoading(false);
-    });
-  }, []);
-
   const categories = useMemo(() => {
-    const cats = new Set(projects.map(p => p.category));
+    const cats = new Set(projects.map((p) => p.category));
     return ['All', ...Array.from(cats)];
   }, [projects]);
 
   const filteredProjects = useMemo(() => {
     if (activeCategory === 'All') return projects;
-    return projects.filter(p => p.category === activeCategory);
+    return projects.filter((p) => p.category === activeCategory);
   }, [projects, activeCategory]);
-
-  if (loading) {
-    return (
-      <section id="projects" className="py-24 px-6">
-        <div className="max-w-5xl mx-auto space-y-12">
-          <SectionHeader eyebrow="04" title="Projects" variant="serif" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
-                <Skeleton className="aspect-[4/3] rounded-none" />
-                <div className="p-5 space-y-3">
-                  <Skeleton className="h-4 w-2/3" />
-                  <Skeleton className="h-3 w-full" />
-                  <Skeleton className="h-3 w-4/5" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   if (projects.length === 0) return null;
 
@@ -78,9 +49,9 @@ const ProjectsSection: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProjects.map((project, index) => (
-            <Reveal key={project.id ?? index} delay={index * 50} className="h-full">
+            <Reveal key={project.slug} delay={index * 50} className="h-full">
               <Link
-                href={`/projects/${project.id}`}
+                href={`/projects/${project.slug}`}
                 className="group flex flex-col h-full bg-white/5 border border-white/10 rounded-xl overflow-hidden transition-[transform,border-color,background-color] duration-300 ease-out-strong hover:-translate-y-1 hover:bg-white/[0.07] hover:border-white/20 active:scale-[0.99]"
               >
                 <div className="relative aspect-[4/3] bg-zinc-900 flex-shrink-0 overflow-hidden">
