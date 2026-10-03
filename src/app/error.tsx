@@ -2,10 +2,7 @@
 
 import { useEffect } from 'react';
 
-// Runtime error boundary. If a data fetch throws at request time (e.g. Supabase
-// is unreachable during an ISR revalidation), the user sees this instead of a
-// blank or broken page. The last successfully generated static page continues
-// to be served until a revalidation succeeds.
+// Generic runtime error boundary.
 export default function Error({
   error,
   reset,

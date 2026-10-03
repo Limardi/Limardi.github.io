@@ -5,14 +5,10 @@ import OrganizationSection from '@/components/OrganizationSection';
 import ProjectsSection from '@/components/ProjectsSection';
 import LanguageSection from '@/components/LanguageSection';
 import ContactSection from '@/components/ContactSection';
-import { getPortfolio } from '@/lib/queries';
+import { portfolioData } from '@/data/portfolio-content';
 
-// Incremental Static Regeneration: render content into the HTML and revalidate
-// hourly. A failed revalidation keeps serving the last good render.
-export const revalidate = 3600;
-
-export default async function Home() {
-  const data = await getPortfolio();
+export default function Home() {
+  const data = portfolioData;
 
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-100">

@@ -5,19 +5,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
     "lint": "next lint",
     "deploy": "npm run build"
   },
   "dependencies": {
-    "@pinecone-database/pinecone": "^6.1.1",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
-    "@supabase/supabase-js": "^2.97.0",
     "@types/three": "^0.183.1",
-    "langchain": "^0.3.29",
     "next": "^16.1.6",
-    "openai": "^5.9.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "three": "^0.183.1"

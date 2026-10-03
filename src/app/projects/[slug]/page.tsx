@@ -1,14 +1,11 @@
 import { existsSync } from 'node:fs';
 import path from 'node:path';
-import { getProjectBySlug, getProjects } from '@/lib/queries';
+import { portfolioData } from '@/data/portfolio-content';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import SectionHeader from '@/components/common/SectionHeader';
 import PBRProjectSection from '@/components/PBRProjectSection';
 import SafeImage from '@/components/common/SafeImage';
-
-// Statically generate each project page and revalidate hourly (ISR).
-export const revalidate = 3600;
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -22,15 +19,14 @@ function resolvePublicAsset(p?: string): string | undefined {
 }
 
 export async function generateStaticParams() {
-    const projects = await getProjects();
-    return projects.map((project) => ({
+    return portfolioData.projects.map((project) => ({
         slug: project.slug,
     }));
 }
 
 export default async function ProjectPage({ params }: PageProps) {
     const { slug } = await params;
-    const project = await getProjectBySlug(slug);
+    const project = portfolioData.projects.find((p) => p.slug === slug);
 
     if (!project) {
         notFound();
