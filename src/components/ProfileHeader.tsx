@@ -62,17 +62,17 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProject
             </p>
           </div>
 
-          <div className="flex items-center justify-center gap-4 pt-4">
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
             <a
               href="#projects"
-              className="px-6 py-3 text-sm font-medium text-zinc-950 bg-white rounded-lg transition-[transform,background-color] duration-200 ease-out-strong hover:bg-zinc-200 active:scale-[0.97]"
+              className="whitespace-nowrap px-6 py-3 text-sm font-medium text-zinc-950 bg-white rounded-lg transition-[transform,background-color] duration-200 ease-out-strong hover:bg-zinc-200 active:scale-[0.97]"
             >
               View Projects
             </a>
             <a
               href="/Vincent-Limardi-Resume.pdf"
               download
-              className="px-6 py-3 text-sm font-medium text-white border border-white/20 rounded-lg transition-[transform,background-color,border-color] duration-200 ease-out-strong hover:bg-white/10 hover:border-white/30 active:scale-[0.97]"
+              className="whitespace-nowrap px-6 py-3 text-sm font-medium text-white border border-white/20 rounded-lg transition-[transform,background-color,border-color] duration-200 ease-out-strong hover:bg-white/10 hover:border-white/30 active:scale-[0.97]"
             >
               Download CV
             </a>
@@ -80,7 +80,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProject
               href={personal.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 text-sm font-medium text-white border border-white/20 rounded-lg transition-[transform,background-color,border-color] duration-200 ease-out-strong hover:bg-white/10 hover:border-white/30 active:scale-[0.97]"
+              className="whitespace-nowrap px-6 py-3 text-sm font-medium text-white border border-white/20 rounded-lg transition-[transform,background-color,border-color] duration-200 ease-out-strong hover:bg-white/10 hover:border-white/30 active:scale-[0.97]"
             >
               GitHub
             </a>

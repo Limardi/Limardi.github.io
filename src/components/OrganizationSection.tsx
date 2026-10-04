@@ -11,7 +11,7 @@ const OrganizationSection: React.FC<OrganizationSectionProps> = ({ items }) => {
   if (items.length === 0) return null;
 
   return (
-    <section id="organizations" className="py-24 px-6">
+    <section id="organizations" className="py-16 sm:py-24 px-6">
       <div className="max-w-3xl mx-auto space-y-12">
         <SectionHeader eyebrow="03" title="Organizations" variant="serif" />
 
@@ -19,7 +19,7 @@ const OrganizationSection: React.FC<OrganizationSectionProps> = ({ items }) => {
           {items.map((org, index) => (
             <Reveal key={org.slug} delay={index * 60}>
               <div className="p-6 bg-white/5 border border-white/10 rounded-xl transition-[transform,border-color,background-color] duration-300 ease-out-strong hover:-translate-y-0.5 hover:bg-white/[0.07] hover:border-white/20">
-                <div className="flex items-start justify-between gap-4 mb-3">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-3">
                   <div>
                     <h3 className="text-lg font-medium text-white">{org.name}</h3>
                     <p className="text-zinc-400">{org.role}</p>

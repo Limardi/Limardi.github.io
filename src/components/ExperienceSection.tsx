@@ -11,7 +11,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items }) => {
   if (items.length === 0) return null;
 
   return (
-    <section id="experience" className="py-24 px-6">
+    <section id="experience" className="py-16 sm:py-24 px-6">
       <div className="max-w-3xl mx-auto space-y-12">
         <SectionHeader eyebrow="01" title="Experience" variant="serif" />
 

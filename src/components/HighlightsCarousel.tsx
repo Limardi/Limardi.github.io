@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import SafeImage from './common/SafeImage';
 import type { Project } from '@/data/portfolio-data';
 
@@ -35,11 +35,13 @@ function HighlightCard({ project, className = '' }: HighlightCardProps) {
           alt={project.title}
           fill
           sizes="(min-width: 1024px) 400px, 576px"
-          className="object-cover transition-transform duration-500 ease-out-strong group-hover:scale-[1.05]"
+          className={`object-cover transition-transform duration-500 ease-out-strong group-hover:scale-[1.05] ${
+            project.slug === 'retrieval-based-pbr-textures' ? 'object-left' : ''
+          }`}
         />
       </div>
       <div className="p-6 space-y-2.5">
-        <span className="inline-block px-3 py-1 rounded-full bg-amber-400/15 text-amber-300 text-sm font-semibold leading-none">
+        <span className="inline-block px-3 py-1 rounded-full bg-amber-400/15 text-amber-300 text-xs sm:text-sm font-semibold leading-tight">
           {ACCOLADES[project.slug] ?? 'Highlighted project'}
         </span>
         <p className="text-xl sm:text-2xl font-semibold text-white leading-snug">{project.title}</p>
@@ -53,13 +55,28 @@ interface HighlightsCarouselProps {
   projects: Project[];
 }
 
+const SWIPE_THRESHOLD_PX = 40;
+
 export default function HighlightsCarousel({ projects }: HighlightsCarouselProps) {
   const [index, setIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
 
   if (projects.length === 0) return null;
 
   const go = (next: number) => {
     setIndex((next + projects.length) % projects.length);
+  };
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (delta > SWIPE_THRESHOLD_PX) go(index - 1);
+    else if (delta < -SWIPE_THRESHOLD_PX) go(index + 1);
   };
 
   return (
@@ -82,6 +99,8 @@ export default function HighlightsCarousel({ projects }: HighlightsCarouselProps
             <div
               className="flex transition-transform duration-500 ease-out-strong"
               style={{ transform: `translateX(-${index * 100}%)` }}
+              onTouchStart={onTouchStart}
+              onTouchEnd={onTouchEnd}
             >
               {projects.map((project) => (
                 <HighlightCard key={project.slug} project={project} className="w-full flex-shrink-0" />
@@ -102,7 +121,7 @@ export default function HighlightsCarousel({ projects }: HighlightsCarouselProps
         </div>
 
         {projects.length > 1 && (
-          <div className="flex items-center justify-center gap-2 pt-4">
+          <div className="flex items-center justify-center gap-1 pt-4">
             {projects.map((project, i) => (
               <button
                 key={project.slug}
@@ -110,10 +129,14 @@ export default function HighlightsCarousel({ projects }: HighlightsCarouselProps
                 aria-label={`Show ${project.title}`}
                 aria-current={i === index}
                 onClick={() => go(i)}
-                className={`h-1.5 rounded-full transition-[width,background-color] duration-300 ease-out-strong ${
-                  i === index ? 'w-6 bg-amber-400' : 'w-1.5 bg-white/20 hover:bg-white/40'
-                }`}
-              />
+                className="p-2.5 -m-0.5"
+              >
+                <span
+                  className={`block h-1.5 rounded-full transition-[width,background-color] duration-300 ease-out-strong ${
+                    i === index ? 'w-6 bg-amber-400' : 'w-1.5 bg-white/20'
+                  }`}
+                />
+              </button>
             ))}
           </div>
         )}

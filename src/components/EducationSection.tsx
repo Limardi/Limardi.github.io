@@ -12,7 +12,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({ education }) => {
   if (!education) return null;
 
   return (
-    <section id="education" className="py-24 px-6">
+    <section id="education" className="py-16 sm:py-24 px-6">
       <div className="max-w-3xl mx-auto space-y-12">
         <SectionHeader eyebrow="02" title="Education" variant="serif" />
 

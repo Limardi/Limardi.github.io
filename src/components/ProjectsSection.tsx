@@ -28,7 +28,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
   if (projects.length === 0) return null;
 
   return (
-    <section id="projects" className="py-24 px-6">
+    <section id="projects" className="py-16 sm:py-24 px-6">
       <div className="max-w-5xl mx-auto space-y-12">
         <SectionHeader eyebrow="04" title="Projects" variant="serif" />
 
@@ -66,7 +66,9 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
                     alt={project.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 ease-out-strong group-hover:scale-[1.04]"
+                    className={`object-cover transition-transform duration-500 ease-out-strong group-hover:scale-[1.04] ${
+                      project.slug === 'retrieval-based-pbr-textures' ? 'object-left' : ''
+                    }`}
                   />
                   {project.featured && (
                     <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-amber-400/15 backdrop-blur-sm border border-amber-400/30 text-amber-300 text-xs font-semibold">

@@ -51,7 +51,7 @@ const LanguageSection: React.FC<LanguageSectionProps> = ({ items }) => {
   if (items.length === 0) return null;
 
   return (
-    <section id="languages" className="py-24 px-6">
+    <section id="languages" className="py-16 sm:py-24 px-6">
       <div className="max-w-3xl mx-auto space-y-12">
         <SectionHeader eyebrow="05" title="Languages" variant="serif" />
 

@@ -27,7 +27,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ personal }) => {
   ].filter(Boolean) as Social[];
 
   return (
-    <section id="contact" className="py-32 px-6">
+    <section id="contact" className="py-20 sm:py-32 px-6">
       <div className="max-w-3xl mx-auto">
         <Reveal>
           <SectionHeader title="Let's talk" variant="serif" />

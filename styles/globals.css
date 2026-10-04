@@ -26,6 +26,10 @@
   50% { transform: translateY(6px); opacity: 1; }
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 body {
   color: rgb(var(--foreground));
   background: rgb(var(--background));
