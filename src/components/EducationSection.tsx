@@ -46,7 +46,24 @@ const EducationSection: React.FC<EducationSectionProps> = ({ education }) => {
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-3 gap-4">
+        {/* Mobile: a compact stat row instead of cramming 3 bordered cards into 360px. */}
+        <Reveal once={false} className="sm:hidden">
+          <div className="flex items-center justify-between rounded-xl bg-white/5 border border-white/10 px-2 py-4">
+            {education.rankings.map((item, index) => (
+              <React.Fragment key={index}>
+                {index > 0 && <span aria-hidden className="h-10 w-px bg-white/10 flex-shrink-0" />}
+                <div className="flex-1 flex flex-col items-center gap-0.5 text-center min-w-0">
+                  <span className="text-xl">{item.icon}</span>
+                  <span className="text-[11px] text-zinc-500 truncate">{item.region}</span>
+                  <span className="text-sm font-medium text-white">{item.rank}</span>
+                </div>
+              </React.Fragment>
+            ))}
+          </div>
+        </Reveal>
+
+        {/* Desktop/tablet: full card grid. */}
+        <div className="hidden sm:grid grid-cols-3 gap-4">
           {education.rankings.map((item, index) => (
             <Reveal key={index} delay={index * 60} once={false} className="h-full">
               <div className="h-full p-4 bg-white/5 border border-white/10 rounded-xl text-center transition-[transform,border-color,background-color] duration-300 ease-out-strong hover:-translate-y-0.5 hover:bg-white/[0.07] hover:border-white/20">

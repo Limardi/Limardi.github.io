@@ -57,8 +57,8 @@ export default async function ProjectPage({ params }: PageProps) {
                 </Link>
 
                 {/* Hero Header */}
-                <div className="space-y-6 text-center">
-                    <div className="flex justify-center">
+                <div className="space-y-6 text-left sm:text-center">
+                    <div className="flex justify-start sm:justify-center">
                         <span className="px-5 py-2 text-sm font-bold tracking-widest uppercase bg-white/5 backdrop-blur-md text-zinc-300 border border-white/10 rounded-full shadow-inner">
                             {project.category}
                         </span>
@@ -66,7 +66,7 @@ export default async function ProjectPage({ params }: PageProps) {
                     <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
                         {project.title}
                     </h1>
-                    <p className="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-xl md:text-2xl text-zinc-400 sm:max-w-2xl sm:mx-auto leading-relaxed">
                         {project.description}
                     </p>
                     {project.authors && project.authors.length > 0 && (
@@ -108,7 +108,7 @@ export default async function ProjectPage({ params }: PageProps) {
 
                 {/* Overview & Tech Stack */}
                 <div className="grid md:grid-cols-3 gap-12 pt-8">
-                    <div className="md:col-span-2 space-y-6">
+                    <div className="order-last md:order-none md:col-span-2 space-y-6">
                         <h2 className="text-2xl font-bold text-white flex items-center gap-3">
                             <span className="w-8 h-px bg-white/20" />
                             Overview
@@ -118,7 +118,7 @@ export default async function ProjectPage({ params }: PageProps) {
                         </p>
                     </div>
 
-                    <div className="space-y-6">
+                    <div className="order-first md:order-none space-y-6">
                         <h2 className="text-2xl font-bold text-white flex items-center gap-3">
                             <span className="w-8 h-px bg-white/20" />
                             Technologies
