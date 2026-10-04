@@ -6,6 +6,7 @@ import Link from 'next/link';
 import SectionHeader from '@/components/common/SectionHeader';
 import PBRProjectSection from '@/components/PBRProjectSection';
 import SafeImage from '@/components/common/SafeImage';
+import ProjectDeepDive from '@/components/ProjectDeepDive';
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -153,50 +154,20 @@ export default async function ProjectPage({ params }: PageProps) {
                     </div>
                 )}
 
-                {/* Deep Dive Cards */}
-                <div className="space-y-12">
-                    {project.challenges && project.challenges.length > 0 && (
-                        <div className="bg-zinc-900/30 backdrop-blur-2xl p-8 md:p-12 rounded-[2.5rem] border border-white/5 shadow-inner">
-                            <SectionHeader title="The Challenges" />
-                            <ul className="mt-8 space-y-4">
-                                {project.challenges.map((c, i) => (
-                                    <li key={i} className="flex gap-4">
-                                        <span className="w-1.5 h-1.5 mt-2.5 rounded-full bg-red-400/50 flex-shrink-0" />
-                                        <span className="text-zinc-300 text-lg leading-relaxed">{c}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
-
-                    {project.solutions && project.solutions.length > 0 && (
-                        <div className="bg-zinc-900/30 backdrop-blur-2xl p-8 md:p-12 rounded-[2.5rem] border border-white/5 shadow-inner">
-                            <SectionHeader title="The Solutions" />
-                            <ul className="mt-8 space-y-4">
-                                {project.solutions.map((s, i) => (
-                                    <li key={i} className="flex gap-4">
-                                        <span className="w-1.5 h-1.5 mt-2.5 rounded-full bg-blue-400/50 flex-shrink-0" />
-                                        <span className="text-zinc-300 text-lg leading-relaxed">{s}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
-
-                    {project.outcomes && project.outcomes.length > 0 && (
-                        <div className="bg-zinc-900/30 backdrop-blur-2xl p-8 md:p-12 rounded-[2.5rem] border border-white/5 shadow-inner">
-                            <SectionHeader title="Key Outcomes" />
-                            <ul className="mt-8 space-y-4">
-                                {project.outcomes.map((o, i) => (
-                                    <li key={i} className="flex gap-4">
-                                        <span className="w-1.5 h-1.5 mt-2.5 rounded-full bg-emerald-400/50 flex-shrink-0" />
-                                        <span className="text-zinc-300 text-lg leading-relaxed">{o}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
-                </div>
+                {/* Deep Dive: desktop always-expanded, mobile one-open-at-a-time accordion */}
+                <ProjectDeepDive
+                    sections={[
+                        ...(project.challenges && project.challenges.length > 0
+                            ? [{ title: 'The Challenges', items: project.challenges, dotClassName: 'bg-red-400/50' }]
+                            : []),
+                        ...(project.solutions && project.solutions.length > 0
+                            ? [{ title: 'The Solutions', items: project.solutions, dotClassName: 'bg-blue-400/50' }]
+                            : []),
+                        ...(project.outcomes && project.outcomes.length > 0
+                            ? [{ title: 'Key Outcomes', items: project.outcomes, dotClassName: 'bg-emerald-400/50' }]
+                            : []),
+                    ]}
+                />
             </div>
 
             {/* Floating Action Bar */}

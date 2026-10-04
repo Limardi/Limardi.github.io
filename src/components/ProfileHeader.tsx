@@ -36,7 +36,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProject
         <a href="#" className="flex-shrink-0" aria-label="Back to top">
           <LogoMark />
         </a>
-        <div className="flex items-center gap-3 sm:gap-6 overflow-x-auto">
+        <div className="hidden sm:flex items-center gap-6">
           {navItems.map((item) => (
             <a
               key={item.href}
