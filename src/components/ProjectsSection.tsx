@@ -51,8 +51,13 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
           {filteredProjects.map((project, index) => (
             <Reveal key={project.slug} delay={index * 50} className="h-full">
               <Link
+                id={`project-${project.slug}`}
                 href={`/projects/${project.slug}`}
-                className="group flex flex-col h-full bg-white/5 border border-white/10 rounded-xl overflow-hidden transition-[transform,border-color,background-color] duration-300 ease-out-strong hover:-translate-y-1 hover:bg-white/[0.07] hover:border-white/20 active:scale-[0.99]"
+                className={`group flex flex-col h-full scroll-mt-24 bg-white/5 border rounded-xl overflow-hidden transition-[transform,border-color,background-color] duration-300 ease-out-strong hover:-translate-y-1 hover:bg-white/[0.07] active:scale-[0.99] ${
+                  project.featured
+                    ? 'border-amber-400/30 hover:border-amber-400/60'
+                    : 'border-white/10 hover:border-white/20'
+                }`}
               >
                 <div className="relative aspect-[4/3] bg-zinc-900 flex-shrink-0 overflow-hidden">
                   <SafeImage
@@ -62,6 +67,11 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover transition-transform duration-500 ease-out-strong group-hover:scale-[1.04]"
                   />
+                  {project.featured && (
+                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-amber-400/15 backdrop-blur-sm border border-amber-400/30 text-amber-300 text-xs font-semibold">
+                      Featured
+                    </span>
+                  )}
                 </div>
                 <div className="p-5 flex flex-col flex-1">
                   <div className="flex items-center gap-2 mb-2">
