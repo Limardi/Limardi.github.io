@@ -29,17 +29,19 @@ const EducationSection: React.FC<EducationSectionProps> = ({ education }) => {
             </div>
             <div className="flex-1 space-y-3">
               <h3 className="text-xl font-medium text-white">{education.institution}</h3>
-              <div className="space-y-1.5">
+              <div className="space-y-2.5">
                 {education.degrees.map((d, i) => (
-                  <div key={i} className="flex items-baseline justify-between gap-3">
-                    <p className="text-zinc-300">{d.degree}</p>
-                    <span className="text-sm text-zinc-500 whitespace-nowrap">{d.period}</span>
+                  <div key={i}>
+                    <div className="flex items-baseline justify-between gap-3">
+                      <p className="text-zinc-300">{d.degree}</p>
+                      <span className="text-sm text-zinc-500 whitespace-nowrap">{d.period}</span>
+                    </div>
+                    {d.focus && d.focus.length > 0 && (
+                      <p className="text-sm text-zinc-500 mt-0.5">Research: {d.focus.join(', ')}</p>
+                    )}
                   </div>
                 ))}
               </div>
-              {education.focus.length > 0 && (
-                <p className="text-sm text-zinc-500">Research: {education.focus.join(', ')}</p>
-              )}
             </div>
           </div>
         </Reveal>

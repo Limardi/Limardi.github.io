@@ -11,17 +11,15 @@ const navItems = [
 
 function LogoMark() {
   return (
-    <svg viewBox="0 0 490 350" role="img" aria-label="Vincent Limardi" className="h-6 w-auto text-white">
-      <g transform="translate(25 18) scale(2.7)">
-        <path
-          d="M21 24 L62 100 C78.5 76.5 91.5 47.5 103 24 V100 H145"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="12"
-          strokeLinecap="square"
-          strokeLinejoin="round"
-        />
-      </g>
+    <svg viewBox="5 10 155 105" role="img" aria-label="Vincent Limardi" className="h-6 w-auto text-white">
+      <path
+        d="M21 24 L62 100 C78.5 76.5 91.5 47.5 103 24 V100 H145"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="12"
+        strokeLinecap="square"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

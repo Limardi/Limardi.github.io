@@ -32,7 +32,11 @@ export const portfolioData: PortfolioData = {
   education: {
     institution: 'National Tsing Hua University',
     degrees: [
-      { degree: 'M.S. in Computer Science', period: 'In Progress' },
+      {
+        degree: 'M.S. in Computer Science',
+        period: 'In Progress',
+        focus: ['Real-to-sim digital twin pipeline'],
+      },
       { degree: 'B.S. in Electrical Engineering and Computer Science', period: 'Since Sept 2022' },
     ],
     gpa: null,
@@ -43,7 +47,6 @@ export const portfolioData: PortfolioData = {
       { region: 'World', rank: '#267', icon: '🌍' },
     ],
     courses: ['Data Structures', 'Software Engineering', 'AI/ML', 'System Design', '3D Graphics'],
-    focus: ['Real-to-sim digital twin pipeline'],
   },
 
   projects: [

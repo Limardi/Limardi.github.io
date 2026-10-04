@@ -56,13 +56,13 @@ export interface Education {
   institution: string;
   // Multiple concurrent/overlapping degrees at the same institution (e.g. an
   // in-progress M.S. alongside the B.S. it continues from) are listed
-  // separately rather than concatenated into one string.
-  degrees: { degree: string; period: string }[];
+  // separately rather than concatenated into one string. `focus` (research
+  // areas) belongs to whichever specific degree it applies to.
+  degrees: { degree: string; period: string; focus?: string[] }[];
   gpa: number | null;
   tScore: number | null;
   rankings: Ranking[];
   courses: string[];
-  focus: string[];
 }
 
 export interface Ranking {
