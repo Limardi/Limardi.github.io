@@ -35,20 +35,20 @@ export default function HighlightsCarousel({ projects }: HighlightsCarouselProps
   };
 
   return (
-    <div className="w-full max-w-sm sm:max-w-md mx-auto pt-4">
-      <div className="relative flex items-center gap-2">
+    <div className="w-full max-w-md sm:max-w-xl mx-auto">
+      <div className="relative flex items-center gap-3">
         {projects.length > 1 && (
           <button
             type="button"
             aria-label="Previous highlight"
             onClick={() => go(index - 1)}
-            className="hidden sm:flex flex-shrink-0 w-9 h-9 items-center justify-center rounded-full bg-zinc-900 border border-white/15 text-zinc-300 text-lg transition-colors duration-200 ease-out-strong hover:text-white hover:border-white/30"
+            className="hidden sm:flex flex-shrink-0 w-10 h-10 items-center justify-center rounded-full bg-zinc-900 border border-white/15 text-zinc-300 text-xl transition-colors duration-200 ease-out-strong hover:text-white hover:border-white/30"
           >
             ‹
           </button>
         )}
 
-        <div className="relative flex-1 overflow-hidden rounded-2xl">
+        <div className="relative flex-1 overflow-hidden rounded-3xl">
           <div
             className="flex transition-transform duration-500 ease-out-strong"
             style={{ transform: `translateX(-${index * 100}%)` }}
@@ -58,26 +58,26 @@ export default function HighlightsCarousel({ projects }: HighlightsCarouselProps
                 key={project.slug}
                 href={`#project-${project.slug}`}
                 onClick={handleSelect(project.slug)}
-                className="group w-full flex-shrink-0 text-left overflow-hidden rounded-2xl border border-amber-400/30 bg-white/5 shadow-[0_0_0_1px_rgba(251,191,36,0.12)] transition-[border-color,background-color] duration-300 ease-out-strong hover:border-amber-400/60 hover:bg-white/[0.07]"
+                className="group w-full flex-shrink-0 text-left overflow-hidden rounded-3xl border border-amber-400/30 bg-white/5 shadow-[0_0_0_1px_rgba(251,191,36,0.12)] transition-[border-color,background-color] duration-300 ease-out-strong hover:border-amber-400/60 hover:bg-white/[0.07]"
               >
-                <div className="relative aspect-video overflow-hidden bg-zinc-900">
+                <div className="relative aspect-[16/10] overflow-hidden bg-zinc-900">
                   <SafeImage
                     src={project.image}
                     alt={project.title}
                     fill
-                    sizes="400px"
+                    sizes="576px"
                     className="object-cover transition-transform duration-500 ease-out-strong group-hover:scale-[1.05]"
                   />
-                  <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-zinc-950/80 backdrop-blur-sm text-white text-xs font-semibold">
+                  <span className="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-zinc-950/80 backdrop-blur-sm text-white text-sm font-semibold">
                     {VENUE[project.slug] ?? project.category}
                   </span>
                 </div>
-                <div className="p-5 space-y-2">
-                  <span className="inline-block px-2.5 py-1 rounded-full bg-amber-400/15 text-amber-300 text-xs font-semibold leading-none">
+                <div className="p-6 space-y-2.5">
+                  <span className="inline-block px-3 py-1 rounded-full bg-amber-400/15 text-amber-300 text-sm font-semibold leading-none">
                     {ACHIEVEMENT[project.slug] ?? 'Highlighted project'}
                   </span>
-                  <p className="text-lg font-semibold text-white leading-snug">{project.title}</p>
-                  <p className="text-sm text-zinc-400 leading-relaxed line-clamp-2">{project.description}</p>
+                  <p className="text-xl sm:text-2xl font-semibold text-white leading-snug">{project.title}</p>
+                  <p className="text-base text-zinc-400 leading-relaxed line-clamp-2">{project.description}</p>
                 </div>
               </a>
             ))}
@@ -89,7 +89,7 @@ export default function HighlightsCarousel({ projects }: HighlightsCarouselProps
             type="button"
             aria-label="Next highlight"
             onClick={() => go(index + 1)}
-            className="hidden sm:flex flex-shrink-0 w-9 h-9 items-center justify-center rounded-full bg-zinc-900 border border-white/15 text-zinc-300 text-lg transition-colors duration-200 ease-out-strong hover:text-white hover:border-white/30"
+            className="hidden sm:flex flex-shrink-0 w-10 h-10 items-center justify-center rounded-full bg-zinc-900 border border-white/15 text-zinc-300 text-xl transition-colors duration-200 ease-out-strong hover:text-white hover:border-white/30"
           >
             ›
           </button>

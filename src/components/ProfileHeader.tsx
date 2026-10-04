@@ -39,8 +39,8 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProject
         </div>
       </nav>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-6 pt-20">
-        <div className="text-center max-w-2xl space-y-8">
+      <div className="flex-1 flex flex-col items-center justify-center px-6 pt-20 pb-12">
+        <div className="text-center max-w-3xl space-y-8">
           <div className="space-y-4">
             <p className="inline-flex items-center gap-2 text-sm font-medium text-zinc-500 uppercase tracking-widest">
               <span className="relative flex h-2 w-2">
@@ -81,7 +81,12 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProject
             </a>
           </div>
 
-          <HighlightsCarousel projects={featuredProjects} />
+          {featuredProjects.length > 0 && (
+            <div className="pt-4">
+              <p className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-4">Highlighted</p>
+              <HighlightsCarousel projects={featuredProjects} />
+            </div>
+          )}
         </div>
       </div>
 
