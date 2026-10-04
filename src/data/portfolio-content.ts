@@ -65,10 +65,10 @@ export const portfolioData: PortfolioData = {
       title: 'Insta-Clone',
       category: 'Web Development',
       description:
-        'Instagram clone web app built from scratch, featuring full-stack development with React. Implemented seamless UI design with Tailwind CSS and created responsive web applications, establishing a solid foundation in dynamic web development.',
+        'A sleek, responsive Instagram clone built with React, TypeScript, and Appwrite, replicating core social media features like auth, media uploads, likes, and search.',
       detailedDescription:
-        'A comprehensive Instagram clone that replicates core social media functionality including user authentication, photo sharing, likes, comments, and real-time updates.',
-      technologies: ['React', 'Tailwind CSS', 'JavaScript', 'HTML5', 'CSS3', 'Git', 'GitHub'],
+        'A comprehensive Instagram clone built with a React/TypeScript/Vite frontend (Tailwind CSS + shadcn/ui components) and Appwrite as the backend for authentication, data, and media storage, replicating core social media functionality including user authentication, photo sharing, likes, comments, and search.',
+      technologies: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'shadcn/ui', 'Appwrite'],
       challenges: [
         'Implementing real-time updates for likes and comments',
         'Creating responsive design for mobile and desktop',
@@ -88,7 +88,7 @@ export const portfolioData: PortfolioData = {
         'Gained experience with modern web development practices',
       ],
       githubUrl: 'https://github.com/Limardi/insta-clone',
-      image: '/images/insta-clone.jpg',
+      image: '',
       type: 'Self Project',
     },
     {
@@ -119,7 +119,7 @@ export const portfolioData: PortfolioData = {
         'Gained experience with game AI development',
       ],
       githubUrl: 'https://github.com/Limardi/mini-chess-ai',
-      image: '/images/mini-chess-ai.jpg',
+      image: '',
       type: 'AI Project',
     },
     {
@@ -127,10 +127,10 @@ export const portfolioData: PortfolioData = {
       title: 'Course-In',
       category: 'Mobile Development',
       description:
-        'Academic system information app for NTHU, featuring comprehensive API integration and database management. Developed using Flutter to create a seamless mobile experience.',
+        'A Flutter app that helps NTHU students decide which courses to take each semester, using an OpenAI Assistant for personalized course recommendations.',
       detailedDescription:
-        'A mobile application designed to help NTHU students access academic information, course schedules, and university resources.',
-      technologies: ['Flutter', 'Dart', 'API Integration', 'Database Management', 'Mobile UI/UX'],
+        'A Software Studio final project built with a 6-person team (Vincent Limardi, Neville Natalio Davisan, Jeremy Robert, Aryabima Mandala Putra, Winnie Faustine, and Quaneisha Kristy). Course-In integrates an OpenAI Assistant with a Firebase/Firestore backend to give NTHU students personalized guidance on which courses to take, alongside standard academic info and scheduling features.',
+      technologies: ['Flutter', 'Dart', 'OpenAI Assistant API', 'Firebase', 'Firestore'],
       challenges: [
         'Integrating with NTHU academic APIs',
         'Managing complex data structures',
@@ -149,7 +149,8 @@ export const portfolioData: PortfolioData = {
         'Enhanced API integration experience',
         'Gained user feedback and iteration experience',
       ],
-      image: '/images/course-in.jpg',
+      githubUrl: 'https://github.com/Limardi/CourseIn',
+      image: '/images/image_coursein.png',
       type: 'Mobile App',
     },
     {
