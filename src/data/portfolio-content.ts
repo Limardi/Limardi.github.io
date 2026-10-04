@@ -197,6 +197,7 @@ export const portfolioData: PortfolioData = {
       outcomes: ['Nominated for an Outstanding Paper Award at CVGIP 2026 (Taiwan)'],
       image: '/images/image_pbr.png',
       type: 'Research',
+      authors: ['Tay Khai Li', 'Vincent Limardi', 'Kai-Wen Hsiao', 'Shih-Hsuan Hung', 'Hung-Kuo Chu'],
     },
     {
       slug: 'camgraph',
@@ -205,7 +206,7 @@ export const portfolioData: PortfolioData = {
       description:
         'CamGraph: Level-of-Detail Visualization of Camera View Graphs for Novel View Synthesis. A tool for inspecting the camera viewpoints behind large-scale 3D reconstructions without the visual clutter of showing every camera at once.',
       detailedDescription:
-        "CamGraph helps researchers make sense of the hundreds or thousands of camera viewpoints used to reconstruct a 3D scene with modern Novel View Synthesis methods like 3D Gaussian Splatting. From Structure-from-Motion outputs, it builds a weighted camera view graph encoding co-visibility and pose geometry, hierarchically clusters cameras into a tree of groups via spectral clustering, and uses a viewpoint-aware level-of-detail viewer to surface the camera groups and input views most relevant to wherever you're looking — instead of cluttering the scene with every camera frustum at once. Co-authored with Ming-Hsien Huang, Kai-Wen Hsiao, and Prof. Shih-Hsuan Hung at the CGV & VM Lab, NTHU.",
+        "CamGraph helps researchers make sense of the hundreds or thousands of camera viewpoints used to reconstruct a 3D scene with modern Novel View Synthesis methods like 3D Gaussian Splatting. From Structure-from-Motion outputs, it builds a weighted camera view graph encoding co-visibility and pose geometry, hierarchically clusters cameras into a tree of groups via spectral clustering, and uses a viewpoint-aware level-of-detail viewer to surface the camera groups and input views most relevant to wherever you're looking — instead of cluttering the scene with every camera frustum at once.",
       technologies: [
         'Structure-from-Motion',
         '3D Gaussian Splatting',
@@ -228,6 +229,12 @@ export const portfolioData: PortfolioData = {
       ],
       image: '/images/camgraph_teaser.png',
       type: 'Research',
+      authors: ['Vincent Limardi', 'Ming-Hsien Huang', 'Kai-Wen Hsiao', 'Shih-Hsuan Hung'],
+      resultsFigure: {
+        src: '/images/camgraph_case_study.png',
+        caption:
+          'Comparison between a conventional frustum viewer (a, cluttered) and CamGraph (b). The case study (c-e) traces a degraded, blurred 3D Gaussian Splatting reconstruction back to the input camera views responsible for it.',
+      },
     },
   ],
 

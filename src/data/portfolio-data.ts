@@ -28,6 +28,9 @@ export interface Project {
   image: string;
   videoUrl?: string;
   type: string;
+  // Only set for published papers/posters.
+  authors?: string[];
+  resultsFigure?: { src: string; caption: string };
 }
 
 export interface Experience {

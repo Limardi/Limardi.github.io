@@ -69,6 +69,11 @@ export default async function ProjectPage({ params }: PageProps) {
                     <p className="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
                         {project.description}
                     </p>
+                    {project.authors && project.authors.length > 0 && (
+                        <p className="text-sm text-zinc-500 tracking-wide">
+                            {project.authors.join(', ')}
+                        </p>
+                    )}
                 </div>
 
                 {/* Hero Media */}
@@ -130,6 +135,23 @@ export default async function ProjectPage({ params }: PageProps) {
                         </div>
                     </div>
                 </div>
+
+                {/* Results Figure */}
+                {project.resultsFigure && (
+                    <div className="bg-zinc-900/30 backdrop-blur-2xl p-8 md:p-12 rounded-[2.5rem] border border-white/5 shadow-inner space-y-6">
+                        <SectionHeader title="Results" />
+                        <div className="relative w-full rounded-2xl overflow-hidden border border-white/10 bg-zinc-900">
+                            <img
+                                src={project.resultsFigure.src}
+                                alt={project.resultsFigure.caption}
+                                className="w-full h-auto"
+                            />
+                        </div>
+                        <p className="text-zinc-400 text-base leading-relaxed">
+                            {project.resultsFigure.caption}
+                        </p>
+                    </div>
+                )}
 
                 {/* Deep Dive Cards */}
                 <div className="space-y-12">
