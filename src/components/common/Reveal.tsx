@@ -7,9 +7,21 @@ type RevealProps = {
   delay?: number;
   className?: string;
   distance?: string;
+  // 'scroll' (default): animates in via IntersectionObserver once the element
+  // scrolls into view. 'mount': plays once, right after mount, regardless of
+  // scroll position -- for content that's often already in the initial
+  // viewport (e.g. inside the hero), where a scroll-gated reveal may never
+  // visibly trigger.
+  trigger?: 'scroll' | 'mount';
 };
 
-export default function Reveal({ children, delay = 0, className = '', distance = 'translate-y-2' }: RevealProps) {
+export default function Reveal({
+  children,
+  delay = 0,
+  className = '',
+  distance = 'translate-y-2',
+  trigger = 'scroll',
+}: RevealProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
@@ -19,6 +31,11 @@ export default function Reveal({ children, delay = 0, className = '', distance =
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setVisible(true);
       return;
+    }
+
+    if (trigger === 'mount') {
+      const raf = requestAnimationFrame(() => setVisible(true));
+      return () => cancelAnimationFrame(raf);
     }
 
     const el = ref.current;
@@ -39,7 +56,7 @@ export default function Reveal({ children, delay = 0, className = '', distance =
 
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [trigger]);
 
   return (
     <div
