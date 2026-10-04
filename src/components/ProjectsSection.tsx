@@ -20,8 +20,9 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
   }, [projects]);
 
   const filteredProjects = useMemo(() => {
-    if (activeCategory === 'All') return projects;
-    return projects.filter((p) => p.category === activeCategory);
+    const scoped = activeCategory === 'All' ? projects : projects.filter((p) => p.category === activeCategory);
+    // Featured projects lead the grid; stable sort keeps the rest in their original order.
+    return [...scoped].sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
   }, [projects, activeCategory]);
 
   if (projects.length === 0) return null;
