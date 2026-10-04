@@ -183,6 +183,52 @@ export const portfolioData: PortfolioData = {
       videoUrl: '/images/kitchen-learning_video.mp4',
       type: 'Game Dev',
     },
+    {
+      slug: 'pbr-material-generation',
+      title: 'PBR Material Generation',
+      category: 'Computer Graphics Research',
+      description:
+        'Research project at the CGV & VM Lab improving a physically-based material-generation pipeline for realistic 3D asset texturing.',
+      detailedDescription:
+        'Research work improving a pipeline that generates physically-based rendering (PBR) material maps (diffuse, roughness, metallic, normal) for 3D assets, aimed at producing more realistic surface appearance than existing style-transfer-based texturing approaches. Explore the interactive comparison viewer below to see the generated PBR materials applied to several 3D models side-by-side with the originals.',
+      technologies: ['Computer Vision', '3D Graphics', 'PBR Materials', 'Python', 'Research'],
+      challenges: [],
+      solutions: [],
+      outcomes: ['Nominated for an Outstanding Paper Award at CVGIP 2026 (Taiwan)'],
+      image: '/images/image_pbr.png',
+      type: 'Research',
+    },
+    {
+      slug: 'camgraph',
+      title: 'CamGraph',
+      category: 'Computer Graphics Research',
+      description:
+        'CamGraph: Level-of-Detail Visualization of Camera View Graphs for Novel View Synthesis. A tool for inspecting the camera viewpoints behind large-scale 3D reconstructions without the visual clutter of showing every camera at once.',
+      detailedDescription:
+        "CamGraph helps researchers make sense of the hundreds or thousands of camera viewpoints used to reconstruct a 3D scene with modern Novel View Synthesis methods like 3D Gaussian Splatting. From Structure-from-Motion outputs, it builds a weighted camera view graph encoding co-visibility and pose geometry, hierarchically clusters cameras into a tree of groups via spectral clustering, and uses a viewpoint-aware level-of-detail viewer to surface the camera groups and input views most relevant to wherever you're looking — instead of cluttering the scene with every camera frustum at once. Co-authored with Ming-Hsien Huang, Kai-Wen Hsiao, and Prof. Shih-Hsuan Hung at the CGV & VM Lab, NTHU.",
+      technologies: [
+        'Structure-from-Motion',
+        '3D Gaussian Splatting',
+        'Spectral Clustering',
+        'Data Visualization',
+        'Python',
+      ],
+      challenges: [
+        'Dense captures with hundreds to thousands of cameras overwhelm conventional frustum-based viewers with visual clutter',
+        'Existing tools (COLMAP, Nerfstudio Viewer) show cameras as isolated frustums/icons with no sense of how views relate to each other',
+      ],
+      solutions: [
+        'Built a weighted camera view graph from SfM outputs encoding co-visibility and pose geometry',
+        'Applied recursive spectral clustering to organize cameras into a tree-structured hierarchy',
+        'Designed a level-of-detail viewer that reveals coarse camera groups when zoomed out and fine camera detail on local inspection',
+      ],
+      outcomes: [
+        'Accepted as a poster at SIGGRAPH Asia 2026 (Kuala Lumpur, Malaysia)',
+        'Validated on a 1,000+ camera outdoor case study and a 12-participant user study with a 100% task success rate',
+      ],
+      image: '/images/camgraph_teaser.png',
+      type: 'Research',
+    },
   ],
 
   experience: [
