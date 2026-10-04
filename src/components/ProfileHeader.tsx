@@ -24,14 +24,14 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProject
 
   return (
     <header className="relative min-h-screen flex flex-col">
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-zinc-950/80 backdrop-blur-md border-b border-white/5">
-        <span className="font-serif text-lg font-medium text-white">{initials}</span>
-        <div className="flex items-center gap-6">
+      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between gap-4 px-6 py-4 bg-zinc-950/80 backdrop-blur-md border-b border-white/5">
+        <span className="flex-shrink-0 font-serif text-lg font-medium text-white">{initials}</span>
+        <div className="flex items-center gap-3 sm:gap-6 overflow-x-auto">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm text-zinc-400 hover:text-white transition-colors duration-200 ease-out-strong"
+              className="flex-shrink-0 text-sm text-zinc-400 hover:text-white transition-colors duration-200 ease-out-strong"
             >
               {item.label}
             </a>
