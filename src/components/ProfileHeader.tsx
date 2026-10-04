@@ -97,14 +97,14 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProject
               GitHub
             </a>
           </div>
-
-          {featuredProjects.length > 0 && (
-            <div className="pt-10">
-              <p className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-4">Highlighted</p>
-              <HighlightsCarousel projects={featuredProjects} />
-            </div>
-          )}
         </div>
+
+        {featuredProjects.length > 0 && (
+          <div className="relative w-full max-w-[60rem] text-center pt-10">
+            <p className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-4">Highlighted</p>
+            <HighlightsCarousel projects={featuredProjects} />
+          </div>
+        )}
       </div>
 
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-zinc-600 text-xs">

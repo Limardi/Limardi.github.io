@@ -63,24 +63,24 @@ export default function HighlightsCarousel({ projects }: HighlightsCarouselProps
               e.preventDefault();
               scrollToProject(project.slug);
             }}
-            className="group snap-center flex-shrink-0 w-80 text-left overflow-hidden rounded-3xl border border-amber-400/30 bg-white/5 shadow-[0_0_0_1px_rgba(251,191,36,0.12)] transition-[border-color,background-color] duration-300 ease-out-strong hover:border-amber-400/60 hover:bg-white/[0.07]"
+            className="group snap-center flex-shrink-0 w-[28rem] max-w-[85vw] text-left overflow-hidden rounded-3xl border border-amber-400/30 bg-white/5 shadow-[0_0_0_1px_rgba(251,191,36,0.12)] transition-[border-color,background-color] duration-300 ease-out-strong hover:border-amber-400/60 hover:bg-white/[0.07]"
           >
             <div className="relative aspect-[2/1] overflow-hidden bg-zinc-900">
               <SafeImage
                 src={project.image}
                 alt={project.title}
                 fill
-                sizes="320px"
+                sizes="(max-width: 640px) 85vw, 448px"
                 className={`object-cover transition-transform duration-500 ease-out-strong group-hover:scale-[1.05] ${
                   project.slug === 'retrieval-based-pbr-textures' ? 'object-left' : ''
                 }`}
               />
             </div>
-            <div className="p-6 space-y-2.5">
-              <span className="inline-block px-3 py-1 rounded-full bg-amber-400/15 text-amber-300 text-xs sm:text-sm font-semibold leading-tight">
+            <div className="p-7 space-y-3">
+              <span className="inline-block px-3 py-1 rounded-full bg-amber-400/15 text-amber-300 text-sm font-semibold leading-tight">
                 {ACCOLADES[project.slug] ?? 'Highlighted project'}
               </span>
-              <p className="text-xl sm:text-2xl font-semibold text-white leading-snug">{project.title}</p>
+              <p className="text-2xl sm:text-3xl font-semibold text-white leading-snug">{project.title}</p>
               <p className="text-base text-zinc-400 leading-relaxed line-clamp-2">{project.description}</p>
             </div>
           </a>
