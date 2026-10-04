@@ -58,8 +58,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProject
               I&apos;m {personal.name}
             </h1>
             <p className="text-lg sm:text-xl text-zinc-400 max-w-lg mx-auto leading-relaxed text-balance">
-              Full-stack engineer and graduate researcher at NTHU, building computer-vision and
-              graphics tools recognized at SIGGRAPH Asia and CVGIP.
+              Building solutions at the intersection of technology and real-world impact.
             </p>
           </div>
 
