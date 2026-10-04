@@ -11,10 +11,12 @@ interface Social {
   label: string;
   href: string;
   external: boolean;
+  download?: boolean;
 }
 
 const ContactSection: React.FC<ContactSectionProps> = ({ personal }) => {
   const socials: Social[] = [
+    { label: 'Download CV', href: '/Vincent-Limardi-Resume.pdf', external: false, download: true },
     personal.linkedin && { label: 'LinkedIn', href: personal.linkedin, external: true },
     personal.instagram && { label: 'Instagram', href: personal.instagram, external: true },
     personal.phone && {
@@ -68,6 +70,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({ personal }) => {
                     href={s.href}
                     target={s.external ? '_blank' : undefined}
                     rel={s.external ? 'noopener noreferrer' : undefined}
+                    download={s.download}
                     className="transition-colors duration-200 ease-out-strong hover:text-white"
                   >
                     {s.label}

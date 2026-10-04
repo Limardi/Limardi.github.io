@@ -63,6 +63,13 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal }) => {
               View Projects
             </a>
             <a
+              href="/Vincent-Limardi-Resume.pdf"
+              download
+              className="px-6 py-3 text-sm font-medium text-white border border-white/20 rounded-lg transition-[transform,background-color,border-color] duration-200 ease-out-strong hover:bg-white/10 hover:border-white/30 active:scale-[0.97]"
+            >
+              Download CV
+            </a>
+            <a
               href={personal.github}
               target="_blank"
               rel="noopener noreferrer"

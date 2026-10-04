@@ -31,6 +31,9 @@ const EducationSection: React.FC<EducationSectionProps> = ({ education }) => {
               <h3 className="text-xl font-medium text-white">{education.institution}</h3>
               <p className="text-zinc-400">{education.degree}</p>
               <p className="text-sm text-zinc-500">{education.period}</p>
+              {education.focus.length > 0 && (
+                <p className="text-sm text-zinc-500">Research: {education.focus.join(', ')}</p>
+              )}
             </div>
           </div>
         </Reveal>
