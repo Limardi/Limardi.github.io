@@ -4,16 +4,10 @@ import React, { useState } from 'react';
 import SafeImage from './common/SafeImage';
 import type { Project } from '@/data/portfolio-data';
 
-// Short venue+year stamp shown on the image, distinct from the achievement
-// pill below (e.g. "SIGGRAPH Asia 2026" + "Posters").
-const VENUE: Record<string, string> = {
-  camgraph: 'SIGGRAPH Asia 2026',
-  'retrieval-based-pbr-textures': 'CVGIP 2026',
-};
-
-const ACHIEVEMENT: Record<string, string> = {
-  camgraph: 'Accepted — Posters',
-  'retrieval-based-pbr-textures': 'Outstanding Paper Award',
+// Single combined accolade label per project: "<achievement> — <venue + year>".
+const ACCOLADES: Record<string, string> = {
+  camgraph: 'Posters — SIGGRAPH Asia 2026',
+  'retrieval-based-pbr-textures': 'Outstanding Paper Award — CVGIP 2026',
 };
 
 interface HighlightsCarouselProps {
@@ -68,13 +62,10 @@ export default function HighlightsCarousel({ projects }: HighlightsCarouselProps
                     sizes="576px"
                     className="object-cover transition-transform duration-500 ease-out-strong group-hover:scale-[1.05]"
                   />
-                  <span className="absolute top-4 left-4 px-3 py-1.5 rounded-full bg-zinc-950/80 backdrop-blur-sm text-white text-sm font-semibold">
-                    {VENUE[project.slug] ?? project.category}
-                  </span>
                 </div>
                 <div className="p-6 space-y-2.5">
                   <span className="inline-block px-3 py-1 rounded-full bg-amber-400/15 text-amber-300 text-sm font-semibold leading-none">
-                    {ACHIEVEMENT[project.slug] ?? 'Highlighted project'}
+                    {ACCOLADES[project.slug] ?? 'Highlighted project'}
                   </span>
                   <p className="text-xl sm:text-2xl font-semibold text-white leading-snug">{project.title}</p>
                   <p className="text-base text-zinc-400 leading-relaxed line-clamp-2">{project.description}</p>

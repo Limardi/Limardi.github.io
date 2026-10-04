@@ -21,6 +21,11 @@
   100% { background-position: 200% 0; }
 }
 
+@keyframes scroll-hint {
+  0%, 100% { transform: translateY(0); opacity: 0.25; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+
 body {
   color: rgb(var(--foreground));
   background: rgb(var(--background));

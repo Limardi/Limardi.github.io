@@ -39,8 +39,13 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProject
         </div>
       </nav>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-6 pt-20 pb-12">
-        <div className="text-center max-w-3xl space-y-8">
+      <div className="relative flex-1 flex flex-col items-center justify-center px-6 pt-20 pb-12 overflow-hidden">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-[30%] -translate-x-1/2 -translate-y-1/2 w-[560px] h-[560px] max-w-[90vw] rounded-full bg-amber-400/10 blur-[140px]"
+        />
+
+        <div className="relative text-center max-w-3xl space-y-8">
           <div className="space-y-4">
             <p className="inline-flex items-center gap-2 text-sm font-medium text-zinc-500 uppercase tracking-widest">
               <span className="relative flex h-2 w-2">
@@ -49,11 +54,12 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProject
               </span>
               Available for opportunities
             </p>
-            <h1 className="text-5xl sm:text-7xl font-serif font-medium text-white leading-tight">
+            <h1 className="text-5xl sm:text-7xl font-serif font-medium text-white leading-tight text-balance">
               I&apos;m {personal.name}
             </h1>
-            <p className="text-lg sm:text-xl text-zinc-400 max-w-lg mx-auto leading-relaxed">
-              Building solutions at the intersection of technology and real-world impact.
+            <p className="text-lg sm:text-xl text-zinc-400 max-w-lg mx-auto leading-relaxed text-balance">
+              Full-stack engineer and graduate researcher at NTHU, building computer-vision and
+              graphics tools recognized at SIGGRAPH Asia and CVGIP.
             </p>
           </div>
 
@@ -82,7 +88,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProject
           </div>
 
           {featuredProjects.length > 0 && (
-            <div className="pt-4">
+            <div className="pt-10">
               <p className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-4">Highlighted</p>
               <HighlightsCarousel projects={featuredProjects} />
             </div>
@@ -90,8 +96,12 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProject
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-zinc-600 text-xs">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-zinc-600 text-xs">
         <span>Scroll to explore</span>
+        <span
+          aria-hidden
+          className="w-px h-6 bg-gradient-to-b from-zinc-500 to-transparent animate-[scroll-hint_1.8s_ease-in-out_infinite]"
+        />
       </div>
     </header>
   );
