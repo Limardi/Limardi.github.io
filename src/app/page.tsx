@@ -1,5 +1,4 @@
 import ProfileHeader from '@/components/ProfileHeader';
-import HighlightsSection from '@/components/HighlightsSection';
 import ExperienceSection from '@/components/ExperienceSection';
 import EducationSection from '@/components/EducationSection';
 import OrganizationSection from '@/components/OrganizationSection';
@@ -13,8 +12,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-100">
-      <ProfileHeader personal={data.personal} />
-      <HighlightsSection projects={data.projects.filter((p) => p.featured)} />
+      <ProfileHeader personal={data.personal} featuredProjects={data.projects.filter((p) => p.featured)} />
       <ExperienceSection items={data.experience} />
       <EducationSection education={data.education} />
       <OrganizationSection items={data.organizations} />

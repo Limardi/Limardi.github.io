@@ -1,19 +1,27 @@
 import React from 'react';
-import type { PersonalInfo } from '@/data/portfolio-data';
+import Link from 'next/link';
+import type { PersonalInfo, Project } from '@/data/portfolio-data';
 
 const navItems = [
-  { label: 'Highlights', href: '#highlights' },
   { label: 'Experience', href: '#experience' },
   { label: 'Education', href: '#education' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
 ];
 
+// Short-form recognition labels for the hero, distinct from the fuller
+// `outcomes` text shown on each project's own detail page.
+const ACCOLADES: Record<string, string> = {
+  camgraph: 'SIGGRAPH Asia 2026 Posters',
+  'retrieval-based-pbr-textures': 'CVGIP 2026 Outstanding Paper Award',
+};
+
 interface ProfileHeaderProps {
   personal: PersonalInfo;
+  featuredProjects: Project[];
 }
 
-const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal }) => {
+const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProjects }) => {
   const initials = personal.name
     .split(' ')
     .map((part) => part[0])
@@ -79,6 +87,26 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal }) => {
               GitHub
             </a>
           </div>
+
+          {featuredProjects.length > 0 && (
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+              {featuredProjects.map((project) => (
+                <Link
+                  key={project.slug}
+                  href={`/projects/${project.slug}`}
+                  className="group inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm text-zinc-500 border border-white/10 rounded-full transition-[color,border-color,background-color] duration-200 ease-out-strong hover:text-white hover:border-white/25 hover:bg-white/5"
+                >
+                  <span className="font-medium text-zinc-300 group-hover:text-white">
+                    {ACCOLADES[project.slug] ?? project.title}
+                  </span>
+                  <span className="text-zinc-700" aria-hidden>
+                    ·
+                  </span>
+                  {project.title}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
