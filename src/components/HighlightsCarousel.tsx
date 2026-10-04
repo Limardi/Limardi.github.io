@@ -47,7 +47,7 @@ export default function HighlightsCarousel({ projects }: HighlightsCarouselProps
   if (projects.length === 0) return null;
 
   return (
-    <Reveal trigger="mount" distance="translate-y-8" className="w-full">
+    <Reveal trigger="mount" once={false} distance="translate-y-8" className="w-full">
       <div
         ref={scrollerRef}
         className="flex gap-5 overflow-x-auto snap-x snap-mandatory w-fit max-w-full mx-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
