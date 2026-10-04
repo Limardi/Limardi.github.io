@@ -42,7 +42,7 @@ export default async function ProjectPage({ params }: PageProps) {
         resolvePublicAsset(`/images/${project.slug}_figure.png`);
 
     return (
-        <main className="min-h-screen bg-zinc-950 text-zinc-100 pt-24 pb-32 px-4 relative">
+        <main className="min-h-screen bg-zinc-950 text-zinc-100 pt-10 sm:pt-12 pb-32 px-4 relative">
             <div className="max-w-4xl mx-auto space-y-16">
 
                 {/* Back Link */}
