@@ -9,23 +9,35 @@ const navItems = [
   { label: 'Contact', href: '#contact' },
 ];
 
+function LogoMark() {
+  return (
+    <svg viewBox="0 0 490 350" role="img" aria-label="Vincent Limardi" className="h-6 w-auto text-white">
+      <g transform="translate(25 18) scale(2.7)">
+        <path
+          d="M21 24 L62 100 C78.5 76.5 91.5 47.5 103 24 V100 H145"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="12"
+          strokeLinecap="square"
+          strokeLinejoin="round"
+        />
+      </g>
+    </svg>
+  );
+}
+
 interface ProfileHeaderProps {
   personal: PersonalInfo;
   featuredProjects: Project[];
 }
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProjects }) => {
-  const initials = personal.name
-    .split(' ')
-    .map((part) => part[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
-
   return (
     <header className="relative min-h-screen flex flex-col">
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between gap-4 px-6 py-4 bg-zinc-950/80 backdrop-blur-md border-b border-white/5">
-        <span className="flex-shrink-0 font-serif text-lg font-medium text-white">{initials}</span>
+        <a href="#" className="flex-shrink-0" aria-label="Back to top">
+          <LogoMark />
+        </a>
         <div className="flex items-center gap-3 sm:gap-6 overflow-x-auto">
           {navItems.map((item) => (
             <a
