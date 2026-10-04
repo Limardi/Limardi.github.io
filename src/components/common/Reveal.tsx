@@ -6,9 +6,10 @@ type RevealProps = {
   children: React.ReactNode;
   delay?: number;
   className?: string;
+  distance?: string;
 };
 
-export default function Reveal({ children, delay = 0, className = '' }: RevealProps) {
+export default function Reveal({ children, delay = 0, className = '', distance = 'translate-y-2' }: RevealProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
 
@@ -44,7 +45,7 @@ export default function Reveal({ children, delay = 0, className = '' }: RevealPr
     <div
       ref={ref}
       className={`transition-[opacity,transform] duration-700 ease-out-strong ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+        visible ? 'opacity-100 translate-y-0' : `opacity-0 ${distance}`
       } ${className}`}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
