@@ -1,6 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
-import SafeImage from './common/SafeImage';
+import HighlightsCarousel from './HighlightsCarousel';
 import type { PersonalInfo, Project } from '@/data/portfolio-data';
 
 const navItems = [
@@ -9,13 +8,6 @@ const navItems = [
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
 ];
-
-// Short-form recognition labels for the hero, distinct from the fuller
-// `outcomes` text shown on each project's own detail page.
-const ACCOLADES: Record<string, string> = {
-  camgraph: 'SIGGRAPH Asia 2026 Posters',
-  'retrieval-based-pbr-textures': 'CVGIP 2026 Outstanding Paper Award',
-};
 
 interface ProfileHeaderProps {
   personal: PersonalInfo;
@@ -89,33 +81,7 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProject
             </a>
           </div>
 
-          {featuredProjects.length > 0 && (
-            <div className="flex flex-wrap items-stretch justify-center gap-4 pt-2">
-              {featuredProjects.map((project) => (
-                <Link
-                  key={project.slug}
-                  href={`/projects/${project.slug}`}
-                  className="group w-full max-w-[280px] sm:w-60 text-left overflow-hidden rounded-xl border border-amber-400/25 bg-white/5 transition-[transform,border-color,background-color] duration-300 ease-out-strong hover:-translate-y-1 hover:border-amber-400/60 hover:bg-white/[0.07]"
-                >
-                  <div className="relative aspect-video overflow-hidden bg-zinc-900">
-                    <SafeImage
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      sizes="(max-width: 640px) 90vw, 240px"
-                      className="object-cover transition-transform duration-500 ease-out-strong group-hover:scale-[1.05]"
-                    />
-                  </div>
-                  <div className="p-3 space-y-0.5">
-                    <p className="text-xs font-semibold text-amber-300">
-                      {ACCOLADES[project.slug] ?? ''}
-                    </p>
-                    <p className="text-sm font-medium text-white">{project.title}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
+          <HighlightsCarousel projects={featuredProjects} />
         </div>
       </div>
 
