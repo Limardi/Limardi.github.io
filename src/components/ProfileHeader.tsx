@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import SafeImage from './common/SafeImage';
 import type { PersonalInfo, Project } from '@/data/portfolio-data';
 
 const navItems = [
@@ -89,20 +90,28 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProject
           </div>
 
           {featuredProjects.length > 0 && (
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+            <div className="flex flex-wrap items-stretch justify-center gap-4 pt-2">
               {featuredProjects.map((project) => (
                 <Link
                   key={project.slug}
                   href={`/projects/${project.slug}`}
-                  className="group inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm text-zinc-500 border border-white/10 rounded-full transition-[color,border-color,background-color] duration-200 ease-out-strong hover:text-white hover:border-white/25 hover:bg-white/5"
+                  className="group w-full max-w-[280px] sm:w-60 text-left overflow-hidden rounded-xl border border-amber-400/25 bg-white/5 transition-[transform,border-color,background-color] duration-300 ease-out-strong hover:-translate-y-1 hover:border-amber-400/60 hover:bg-white/[0.07]"
                 >
-                  <span className="font-medium text-zinc-300 group-hover:text-white">
-                    {ACCOLADES[project.slug] ?? project.title}
-                  </span>
-                  <span className="text-zinc-700" aria-hidden>
-                    ·
-                  </span>
-                  {project.title}
+                  <div className="relative aspect-video overflow-hidden bg-zinc-900">
+                    <SafeImage
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 640px) 90vw, 240px"
+                      className="object-cover transition-transform duration-500 ease-out-strong group-hover:scale-[1.05]"
+                    />
+                  </div>
+                  <div className="p-3 space-y-0.5">
+                    <p className="text-xs font-semibold text-amber-300">
+                      {ACCOLADES[project.slug] ?? ''}
+                    </p>
+                    <p className="text-sm font-medium text-white">{project.title}</p>
+                  </div>
                 </Link>
               ))}
             </div>
