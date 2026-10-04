@@ -57,7 +57,7 @@ const LanguageSection: React.FC<LanguageSectionProps> = ({ items }) => {
 
         <div className="grid md:grid-cols-3 gap-4">
           {items.map((lang, index) => (
-            <Reveal key={index} delay={index * 60} className="h-full">
+            <Reveal key={index} delay={index * 60} once={false} className="h-full">
               <div className="h-full p-5 bg-white/5 border border-white/10 rounded-xl transition-[transform,border-color,background-color] duration-300 ease-out-strong hover:-translate-y-0.5 hover:bg-white/[0.07] hover:border-white/20">
                 <h3 className="text-lg font-medium text-white mb-3">{lang.name}</h3>
                 <p className="text-sm text-zinc-400 mb-3">{lang.level}</p>

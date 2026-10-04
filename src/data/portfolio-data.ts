@@ -54,8 +54,10 @@ export interface Experience {
 
 export interface Education {
   institution: string;
-  degree: string;
-  period: string;
+  // Multiple concurrent/overlapping degrees at the same institution (e.g. an
+  // in-progress M.S. alongside the B.S. it continues from) are listed
+  // separately rather than concatenated into one string.
+  degrees: { degree: string; period: string }[];
   gpa: number | null;
   tScore: number | null;
   rankings: Ranking[];

@@ -20,7 +20,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({ items }) => {
 
           <div className="space-y-6">
             {items.map((exp, index) => (
-              <Reveal key={exp.slug} delay={index * 60} className="relative sm:pl-14">
+              <Reveal key={exp.slug} delay={index * 60} once={false} className="relative sm:pl-14">
                 <div className="absolute left-[15px] top-7 w-2 h-2 rounded-full bg-white/40 hidden sm:block" />
 
                 <div className="p-6 bg-white/5 border border-white/10 rounded-xl transition-[transform,border-color,background-color] duration-300 ease-out-strong hover:-translate-y-0.5 hover:bg-white/[0.07] hover:border-white/20">

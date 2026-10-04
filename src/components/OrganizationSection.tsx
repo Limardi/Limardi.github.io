@@ -17,7 +17,7 @@ const OrganizationSection: React.FC<OrganizationSectionProps> = ({ items }) => {
 
         <div className="space-y-4">
           {items.map((org, index) => (
-            <Reveal key={org.slug} delay={index * 60}>
+            <Reveal key={org.slug} delay={index * 60} once={false}>
               <div className="p-6 bg-white/5 border border-white/10 rounded-xl transition-[transform,border-color,background-color] duration-300 ease-out-strong hover:-translate-y-0.5 hover:bg-white/[0.07] hover:border-white/20">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4 mb-3">
                   <div>

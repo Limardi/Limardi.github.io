@@ -31,8 +31,10 @@ export const portfolioData: PortfolioData = {
 
   education: {
     institution: 'National Tsing Hua University',
-    degree: 'M.S. in Computer Science (in progress; B.S. in Electrical Engineering and Computer Science since Sept 2022)',
-    period: 'Since September 2022',
+    degrees: [
+      { degree: 'M.S. in Computer Science', period: 'In Progress' },
+      { degree: 'B.S. in Electrical Engineering and Computer Science', period: 'Since Sept 2022' },
+    ],
     gpa: null,
     tScore: null,
     rankings: [

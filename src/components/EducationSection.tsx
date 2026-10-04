@@ -16,7 +16,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({ education }) => {
       <div className="max-w-3xl mx-auto space-y-12">
         <SectionHeader eyebrow="02" title="Education" variant="serif" />
 
-        <Reveal>
+        <Reveal once={false}>
           <div className="flex items-start gap-6 p-6 bg-white/5 border border-white/10 rounded-xl">
             <div className="w-16 h-16 rounded-lg overflow-hidden bg-white flex-shrink-0">
               <Image
@@ -27,10 +27,16 @@ const EducationSection: React.FC<EducationSectionProps> = ({ education }) => {
                 className="object-contain"
               />
             </div>
-            <div className="flex-1 space-y-2">
+            <div className="flex-1 space-y-3">
               <h3 className="text-xl font-medium text-white">{education.institution}</h3>
-              <p className="text-zinc-400">{education.degree}</p>
-              <p className="text-sm text-zinc-500">{education.period}</p>
+              <div className="space-y-1.5">
+                {education.degrees.map((d, i) => (
+                  <div key={i} className="flex items-baseline justify-between gap-3">
+                    <p className="text-zinc-300">{d.degree}</p>
+                    <span className="text-sm text-zinc-500 whitespace-nowrap">{d.period}</span>
+                  </div>
+                ))}
+              </div>
               {education.focus.length > 0 && (
                 <p className="text-sm text-zinc-500">Research: {education.focus.join(', ')}</p>
               )}
@@ -40,7 +46,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({ education }) => {
 
         <div className="grid grid-cols-3 gap-4">
           {education.rankings.map((item, index) => (
-            <Reveal key={index} delay={index * 60} className="h-full">
+            <Reveal key={index} delay={index * 60} once={false} className="h-full">
               <div className="h-full p-4 bg-white/5 border border-white/10 rounded-xl text-center transition-[transform,border-color,background-color] duration-300 ease-out-strong hover:-translate-y-0.5 hover:bg-white/[0.07] hover:border-white/20">
                 <p className="text-2xl mb-1">{item.icon}</p>
                 <p className="text-xs text-zinc-500">{item.region} Rank</p>
