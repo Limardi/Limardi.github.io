@@ -60,7 +60,7 @@ export default function HighlightsCarousel({ projects }: HighlightsCarouselProps
                 onClick={handleSelect(project.slug)}
                 className="group w-full flex-shrink-0 text-left overflow-hidden rounded-3xl border border-amber-400/30 bg-white/5 shadow-[0_0_0_1px_rgba(251,191,36,0.12)] transition-[border-color,background-color] duration-300 ease-out-strong hover:border-amber-400/60 hover:bg-white/[0.07]"
               >
-                <div className="relative aspect-[16/10] overflow-hidden bg-zinc-900">
+                <div className="relative aspect-[2/1] overflow-hidden bg-zinc-900">
                   <SafeImage
                     src={project.image}
                     alt={project.title}
