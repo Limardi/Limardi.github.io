@@ -2,6 +2,7 @@ import React from 'react';
 import type { PersonalInfo } from '@/data/portfolio-data';
 
 const navItems = [
+  { label: 'Highlights', href: '#highlights' },
   { label: 'Experience', href: '#experience' },
   { label: 'Education', href: '#education' },
   { label: 'Projects', href: '#projects' },

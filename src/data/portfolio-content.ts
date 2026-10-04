@@ -187,6 +187,7 @@ export const portfolioData: PortfolioData = {
       image: '/images/image_pbr.png',
       type: 'Research',
       authors: ['Tay Khai Li', 'Vincent Limardi', 'Kai-Wen Hsiao', 'Shih-Hsuan Hung', 'Hung-Kuo Chu'],
+      featured: true,
     },
     {
       slug: 'camgraph',
@@ -224,6 +225,7 @@ export const portfolioData: PortfolioData = {
         caption:
           'Comparison between a conventional frustum viewer (a, cluttered) and CamGraph (b). The case study (c-e) traces a degraded, blurred 3D Gaussian Splatting reconstruction back to the input camera views responsible for it.',
       },
+      featured: true,
     },
   ],
 

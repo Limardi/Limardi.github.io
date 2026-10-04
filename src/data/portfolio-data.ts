@@ -31,6 +31,8 @@ export interface Project {
   // Only set for published papers/posters.
   authors?: string[];
   resultsFigure?: { src: string; caption: string };
+  // Shown in the homepage Highlights spotlight.
+  featured?: boolean;
 }
 
 export interface Experience {
