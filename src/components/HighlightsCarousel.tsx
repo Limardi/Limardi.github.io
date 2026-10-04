@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SafeImage from './common/SafeImage';
 import Reveal from './common/Reveal';
 import type { Project } from '@/data/portfolio-data';
@@ -15,72 +15,100 @@ function scrollToProject(slug: string) {
   document.getElementById(`project-${slug}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
-interface HighlightCardProps {
-  project: Project;
-  className?: string;
-}
-
-function HighlightCard({ project, className = '' }: HighlightCardProps) {
-  return (
-    <a
-      href={`#project-${project.slug}`}
-      onClick={(e) => {
-        e.preventDefault();
-        scrollToProject(project.slug);
-      }}
-      className={`group text-left overflow-hidden rounded-3xl border border-amber-400/30 bg-white/5 shadow-[0_0_0_1px_rgba(251,191,36,0.12)] transition-[border-color,background-color] duration-300 ease-out-strong hover:border-amber-400/60 hover:bg-white/[0.07] ${className}`}
-    >
-      <div className="relative aspect-[2/1] overflow-hidden bg-zinc-900">
-        <SafeImage
-          src={project.image}
-          alt={project.title}
-          fill
-          sizes="(min-width: 1024px) 400px, 576px"
-          className={`object-cover transition-transform duration-500 ease-out-strong group-hover:scale-[1.05] ${
-            project.slug === 'retrieval-based-pbr-textures' ? 'object-left' : ''
-          }`}
-        />
-      </div>
-      <div className="p-6 space-y-2.5">
-        <span className="inline-block px-3 py-1 rounded-full bg-amber-400/15 text-amber-300 text-xs sm:text-sm font-semibold leading-tight">
-          {ACCOLADES[project.slug] ?? 'Highlighted project'}
-        </span>
-        <p className="text-xl sm:text-2xl font-semibold text-white leading-snug">{project.title}</p>
-        <p className="text-base text-zinc-400 leading-relaxed line-clamp-2">{project.description}</p>
-      </div>
-    </a>
-  );
-}
-
 interface HighlightsCarouselProps {
   projects: Project[];
 }
 
 export default function HighlightsCarousel({ projects }: HighlightsCarouselProps) {
+  const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const root = scrollerRef.current;
+    if (!root || projects.length <= 1) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const idx = cardRefs.current.findIndex((el) => el === entry.target);
+            if (idx !== -1) setActive(idx);
+          }
+        }
+      },
+      { root, threshold: 0.6 }
+    );
+
+    cardRefs.current.forEach((el) => el && observer.observe(el));
+    return () => observer.disconnect();
+  }, [projects.length]);
+
   if (projects.length === 0) return null;
 
   return (
-    <>
-      {/* Small/medium screens: a vertical stack that slides up into view on scroll. */}
-      <div className="lg:hidden w-full max-w-md sm:max-w-xl mx-auto flex flex-col gap-5">
+    <Reveal distance="translate-y-8" className="w-full">
+      <div
+        ref={scrollerRef}
+        className="flex gap-5 overflow-x-auto snap-x snap-mandatory w-fit max-w-full mx-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
         {projects.map((project, i) => (
-          <Reveal key={project.slug} delay={i * 120} distance="translate-y-8">
-            <HighlightCard project={project} className="w-full" />
-          </Reveal>
+          <a
+            key={project.slug}
+            ref={(el) => {
+              cardRefs.current[i] = el;
+            }}
+            href={`#project-${project.slug}`}
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToProject(project.slug);
+            }}
+            className="group snap-center flex-shrink-0 w-80 text-left overflow-hidden rounded-3xl border border-amber-400/30 bg-white/5 shadow-[0_0_0_1px_rgba(251,191,36,0.12)] transition-[border-color,background-color] duration-300 ease-out-strong hover:border-amber-400/60 hover:bg-white/[0.07]"
+          >
+            <div className="relative aspect-[2/1] overflow-hidden bg-zinc-900">
+              <SafeImage
+                src={project.image}
+                alt={project.title}
+                fill
+                sizes="320px"
+                className={`object-cover transition-transform duration-500 ease-out-strong group-hover:scale-[1.05] ${
+                  project.slug === 'retrieval-based-pbr-textures' ? 'object-left' : ''
+                }`}
+              />
+            </div>
+            <div className="p-6 space-y-2.5">
+              <span className="inline-block px-3 py-1 rounded-full bg-amber-400/15 text-amber-300 text-xs sm:text-sm font-semibold leading-tight">
+                {ACCOLADES[project.slug] ?? 'Highlighted project'}
+              </span>
+              <p className="text-xl sm:text-2xl font-semibold text-white leading-snug">{project.title}</p>
+              <p className="text-base text-zinc-400 leading-relaxed line-clamp-2">{project.description}</p>
+            </div>
+          </a>
         ))}
       </div>
 
-      {/* Large screens: enough room to show every highlight at once, same scroll-reveal entrance. */}
-      <div
-        className="hidden lg:grid w-full max-w-3xl mx-auto gap-6"
-        style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}
-      >
-        {projects.map((project, i) => (
-          <Reveal key={project.slug} delay={i * 120} distance="translate-y-8">
-            <HighlightCard project={project} />
-          </Reveal>
-        ))}
-      </div>
-    </>
+      {projects.length > 1 && (
+        <div className="flex items-center justify-center gap-2 pt-4">
+          {projects.map((project, i) => (
+            <button
+              key={project.slug}
+              type="button"
+              aria-label={`Show ${project.title}`}
+              aria-current={i === active}
+              onClick={() =>
+                cardRefs.current[i]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+              }
+              className="p-2.5 -m-0.5"
+            >
+              <span
+                className={`block h-1.5 rounded-full transition-[width,background-color] duration-300 ease-out-strong ${
+                  i === active ? 'w-6 bg-amber-400' : 'w-1.5 bg-white/20'
+                }`}
+              />
+            </button>
+          ))}
+        </div>
+      )}
+    </Reveal>
   );
 }
