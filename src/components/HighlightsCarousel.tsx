@@ -77,7 +77,7 @@ export default function HighlightsCarousel({ projects }: HighlightsCarouselProps
               />
             </div>
             <div className="p-7 space-y-3">
-              <span className="inline-block px-3 py-1 rounded-full bg-amber-400/15 text-amber-300 text-sm font-semibold leading-tight">
+              <span className="inline-block whitespace-nowrap px-2.5 sm:px-3 py-1 rounded-full bg-amber-400/15 text-amber-300 text-[11px] sm:text-sm font-semibold leading-tight">
                 {ACCOLADES[project.slug] ?? 'Highlighted project'}
               </span>
               <p className="text-2xl sm:text-3xl font-semibold text-white leading-snug">{project.title}</p>
