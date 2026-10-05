@@ -114,8 +114,8 @@ export default async function ProjectPage({ params }: PageProps) {
 
                 {/* Overview & Tech Stack */}
                 <div className="grid md:grid-cols-3 gap-12 pt-8">
-                    <div className="order-last md:order-none md:col-span-2 space-y-6 text-center md:text-left">
-                        <h2 className="text-2xl font-bold text-white flex items-center justify-center md:justify-start gap-3">
+                    <div className="order-last md:order-none md:col-span-2 space-y-6">
+                        <h2 className="text-2xl font-bold text-white flex items-center gap-3">
                             <span className="w-8 h-px bg-white/20" />
                             Overview
                         </h2>
@@ -124,12 +124,12 @@ export default async function ProjectPage({ params }: PageProps) {
                         </p>
                     </div>
 
-                    <div className="order-first md:order-none space-y-6 text-center md:text-left">
-                        <h2 className="text-2xl font-bold text-white flex items-center justify-center md:justify-start gap-3">
+                    <div className="order-first md:order-none space-y-6">
+                        <h2 className="text-2xl font-bold text-white flex items-center gap-3">
                             <span className="w-8 h-px bg-white/20" />
                             Technologies
                         </h2>
-                        <div className="flex flex-wrap justify-center md:justify-start gap-2">
+                        <div className="flex flex-wrap gap-2">
                             {project.technologies.map(tech => (
                                 <span
                                     key={tech}
@@ -153,7 +153,7 @@ export default async function ProjectPage({ params }: PageProps) {
                                 className="w-full h-auto"
                             />
                         </div>
-                        <p className="text-zinc-400 text-base leading-relaxed text-center sm:text-left">
+                        <p className="text-zinc-400 text-base leading-relaxed">
                             {project.resultsFigure.caption}
                         </p>
                     </div>
