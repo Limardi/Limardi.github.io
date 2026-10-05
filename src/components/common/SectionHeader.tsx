@@ -13,7 +13,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
 }) => {
   if (variant === 'serif') {
     return (
-      <div className="space-y-3">
+      <div className="space-y-3 text-center sm:text-left">
         {eyebrow && (
           <p className="text-xs font-medium text-zinc-500 uppercase tracking-[0.2em]">
             {eyebrow}

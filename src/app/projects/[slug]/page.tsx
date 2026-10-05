@@ -58,13 +58,13 @@ export default async function ProjectPage({ params }: PageProps) {
                 </Link>
 
                 {/* Hero Header */}
-                <div className="space-y-6 text-left sm:text-center">
-                    <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center justify-start sm:justify-center gap-2 sm:gap-3">
+                <div className="space-y-6 text-center">
+                    <div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center gap-2 sm:gap-3">
                         <span className="px-3 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-bold tracking-wide sm:tracking-widest uppercase bg-white/5 backdrop-blur-md text-zinc-300 border border-white/10 rounded-full shadow-inner">
                             {project.category}
                         </span>
                         {project.accoladeBadge && (
-                            <span className="px-3 py-1.5 sm:px-5 sm:py-2 text-xs sm:text-sm font-bold normal-case sm:tracking-widest sm:uppercase bg-amber-400/15 backdrop-blur-sm border border-amber-400/30 text-amber-300 rounded-lg sm:rounded-full">
+                            <span className="text-center px-3 py-1.5 sm:px-5 sm:py-2 text-xs sm:text-sm font-bold normal-case sm:tracking-widest sm:uppercase bg-amber-400/15 backdrop-blur-sm border border-amber-400/30 text-amber-300 rounded-lg sm:rounded-full">
                                 {project.accoladeBadge}
                             </span>
                         )}
@@ -72,7 +72,7 @@ export default async function ProjectPage({ params }: PageProps) {
                     <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
                         {project.title}
                     </h1>
-                    <p className="text-xl md:text-2xl text-zinc-400 sm:max-w-2xl sm:mx-auto leading-relaxed">
+                    <p className="text-xl md:text-2xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
                         {project.description}
                     </p>
                     {project.authors && project.authors.length > 0 && (
