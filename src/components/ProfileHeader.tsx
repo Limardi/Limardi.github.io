@@ -71,15 +71,10 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProject
           </p>
         </div>
 
-        {/* Mobile: Highlighted comes before the CTAs (content before buttons). Desktop keeps
-            the original headline -> CTAs -> Highlighted order via sm:order-none. */}
-        {featuredProjects.length > 0 && (
-          <div className="order-1 sm:order-none relative w-full max-w-[60rem] text-center pt-8 sm:pt-10">
-            <p className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-4">Highlighted</p>
-            <HighlightsCarousel projects={featuredProjects} />
-          </div>
-        )}
-
+        {/* Mobile: Highlighted comes before the CTAs (content before buttons) via order-1/
+            order-2. Desktop/tablet (sm:+) uses sm:order-none, which falls back to this DOM
+            order -- CTA row first, Highlighted second -- so it must stay written in that
+            order in source for sm:order-none to restore the right layout. */}
         <div className="order-2 sm:order-none relative flex flex-wrap items-center justify-center gap-4 pt-8 max-w-3xl">
           <a
             href="#projects"
@@ -103,14 +98,13 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ personal, featuredProject
             GitHub
           </a>
         </div>
-      </div>
 
-      <div className="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-zinc-600 text-xs">
-        <span>Scroll to explore</span>
-        <span
-          aria-hidden
-          className="w-px h-6 bg-gradient-to-b from-zinc-500 to-transparent animate-[scroll-hint_1.8s_ease-in-out_infinite]"
-        />
+        {featuredProjects.length > 0 && (
+          <div className="order-1 sm:order-none relative w-full max-w-[60rem] text-center pt-8 sm:pt-10">
+            <p className="text-sm font-medium text-zinc-500 uppercase tracking-widest mb-4">Highlighted</p>
+            <HighlightsCarousel projects={featuredProjects} />
+          </div>
+        )}
       </div>
     </header>
   );
