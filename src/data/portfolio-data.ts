@@ -33,6 +33,10 @@ export interface Project {
   resultsFigure?: { src: string; caption: string };
   // Shown in the homepage Highlights spotlight.
   featured?: boolean;
+  // A declarative accolade badge shown prominently on the project's own detail
+  // page (e.g. "Accepted to SIGGRAPH Asia 2026 Posters"), distinct from the
+  // shorter compact label used on the homepage highlight card.
+  accoladeBadge?: string;
 }
 
 export interface Experience {

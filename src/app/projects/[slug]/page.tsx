@@ -59,10 +59,18 @@ export default async function ProjectPage({ params }: PageProps) {
 
                 {/* Hero Header */}
                 <div className="space-y-6 text-left sm:text-center">
-                    <div className="flex justify-start sm:justify-center">
+                    <div className="flex flex-wrap items-center justify-start sm:justify-center gap-3">
                         <span className="px-5 py-2 text-sm font-bold tracking-widest uppercase bg-white/5 backdrop-blur-md text-zinc-300 border border-white/10 rounded-full shadow-inner">
                             {project.category}
                         </span>
+                        {project.accoladeBadge && (
+                            <span className="inline-flex items-center gap-1.5 px-5 py-2 text-sm font-bold tracking-widest uppercase bg-amber-400 text-zinc-950 rounded-full shadow-[0_4px_14px_rgba(251,191,36,0.4)]">
+                                <svg className="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10 1.5l2.47 5.77 6.28.55-4.76 4.17 1.43 6.14L10 14.98l-5.42 3.15 1.43-6.14L.25 7.82l6.28-.55L10 1.5z" />
+                                </svg>
+                                {project.accoladeBadge}
+                            </span>
+                        )}
                     </div>
                     <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
                         {project.title}
