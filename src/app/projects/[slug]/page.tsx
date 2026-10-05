@@ -64,10 +64,7 @@ export default async function ProjectPage({ params }: PageProps) {
                             {project.category}
                         </span>
                         {project.accoladeBadge && (
-                            <span className="inline-flex items-center gap-1.5 px-5 py-2 text-sm font-bold tracking-widest uppercase bg-amber-400 text-zinc-950 rounded-full shadow-[0_4px_14px_rgba(251,191,36,0.4)]">
-                                <svg className="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M10 1.5l2.47 5.77 6.28.55-4.76 4.17 1.43 6.14L10 14.98l-5.42 3.15 1.43-6.14L.25 7.82l6.28-.55L10 1.5z" />
-                                </svg>
+                            <span className="px-5 py-2 text-sm font-bold tracking-widest uppercase bg-amber-400/15 backdrop-blur-sm border border-amber-400/30 text-amber-300 rounded-full">
                                 {project.accoladeBadge}
                             </span>
                         )}
