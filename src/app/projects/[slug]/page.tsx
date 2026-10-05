@@ -59,12 +59,12 @@ export default async function ProjectPage({ params }: PageProps) {
 
                 {/* Hero Header */}
                 <div className="space-y-6 text-left sm:text-center">
-                    <div className="flex flex-wrap items-center justify-start sm:justify-center gap-3">
-                        <span className="px-5 py-2 text-sm font-bold tracking-widest uppercase bg-white/5 backdrop-blur-md text-zinc-300 border border-white/10 rounded-full shadow-inner">
+                    <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center justify-start sm:justify-center gap-2 sm:gap-3">
+                        <span className="px-3 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-bold tracking-wide sm:tracking-widest uppercase bg-white/5 backdrop-blur-md text-zinc-300 border border-white/10 rounded-full shadow-inner">
                             {project.category}
                         </span>
                         {project.accoladeBadge && (
-                            <span className="px-5 py-2 text-sm font-bold tracking-widest uppercase bg-amber-400/15 backdrop-blur-sm border border-amber-400/30 text-amber-300 rounded-full">
+                            <span className="px-3 py-1.5 sm:px-5 sm:py-2 text-xs sm:text-sm font-bold normal-case sm:tracking-widest sm:uppercase bg-amber-400/15 backdrop-blur-sm border border-amber-400/30 text-amber-300 rounded-lg sm:rounded-full">
                                 {project.accoladeBadge}
                             </span>
                         )}
