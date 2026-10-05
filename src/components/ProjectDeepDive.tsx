@@ -54,9 +54,9 @@ export default function ProjectDeepDive({ sections }: ProjectDeepDiveProps) {
               <div className="hidden sm:block">
                 <SectionHeader title={section.title} />
               </div>
-              <ul className="space-y-4 sm:mt-8">
+              <ul className="space-y-4 sm:mt-8 max-w-md mx-auto sm:max-w-none sm:mx-0">
                 {section.items.map((item, idx) => (
-                  <li key={idx} className="flex gap-4">
+                  <li key={idx} className="flex gap-4 justify-center sm:justify-start text-center sm:text-left">
                     <span className={`w-1.5 h-1.5 mt-2.5 rounded-full flex-shrink-0 ${section.dotClassName}`} />
                     <span className="text-zinc-300 text-lg leading-relaxed">{item}</span>
                   </li>
