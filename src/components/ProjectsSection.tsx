@@ -54,10 +54,10 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
               <Link
                 id={`project-${project.slug}`}
                 href={`/projects/${project.slug}`}
-                className={`group flex flex-col h-full scroll-mt-24 bg-white/5 border rounded-xl overflow-hidden transition-[transform,border-color,background-color] duration-300 ease-out-strong hover:-translate-y-1 hover:bg-white/[0.07] active:scale-[0.99] ${
+                className={`group flex flex-col h-full scroll-mt-24 border rounded-xl overflow-hidden transition-[transform,border-color,background-color,box-shadow] duration-300 ease-out-strong hover:-translate-y-1 active:scale-[0.99] ${
                   project.featured
-                    ? 'border-amber-400/30 hover:border-amber-400/60'
-                    : 'border-white/10 hover:border-white/20'
+                    ? 'bg-amber-400/[0.04] border-2 border-amber-400/50 shadow-[0_8px_30px_-15px_rgba(251,191,36,0.35)] hover:bg-amber-400/[0.07] hover:border-amber-400/70'
+                    : 'bg-white/5 border-white/10 hover:bg-white/[0.07] hover:border-white/20'
                 }`}
               >
                 <div className="relative aspect-[4/3] bg-zinc-900 flex-shrink-0 overflow-hidden">
@@ -71,7 +71,10 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ projects }) => {
                     }`}
                   />
                   {project.featured && (
-                    <span className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-amber-400/15 backdrop-blur-sm border border-amber-400/30 text-amber-300 text-xs font-semibold">
+                    <span className="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-400 text-zinc-950 text-xs font-bold shadow-[0_2px_8px_rgba(251,191,36,0.4)]">
+                      <svg className="w-3 h-3" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10 1.5l2.47 5.77 6.28.55-4.76 4.17 1.43 6.14L10 14.98l-5.42 3.15 1.43-6.14L.25 7.82l6.28-.55L10 1.5z" />
+                      </svg>
                       Featured
                     </span>
                   )}
